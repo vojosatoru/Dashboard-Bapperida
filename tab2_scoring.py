@@ -19,7 +19,11 @@ def render_tab2():
             judul, active_col, kolom_numerik = tabel['judul'], tabel['active_sort_col'], tabel['kolom_numerik']
             
             df_temp_full = pd.DataFrame(tabel['data'])
-            df_temp_full['Jumlah'] = df_temp_full[kolom_numerik].sum(axis=1)
+            
+            # Hitung Jumlah hanya jika tabel tersebut memiliki sub-kolom numerik
+            if len(kolom_numerik) > 0:
+                df_temp_full['Jumlah'] = df_temp_full[kolom_numerik].sum(axis=1)
+                
             df_temp = df_temp_full[['Kecamatan', active_col]]
             
             df_temp = df_temp.sort_values(by=active_col, ascending=not tabel['panah_bawah']).reset_index(drop=True)

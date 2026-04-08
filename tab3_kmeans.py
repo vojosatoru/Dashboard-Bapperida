@@ -1,6 +1,7 @@
 # Nama file: tab3_kmeans.py
 import streamlit as st
 import pandas as pd
+import numpy as np
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 import folium
@@ -9,23 +10,46 @@ from utils import DAFTAR_KECAMATAN, KECAMATAN_KUDUS_MAP
 
 def render_tab3():
     st.subheader("🤖 Peta Zonasi AI (K-Means Clustering)")
-    st.markdown("AI membaca **seluruh indikator (kolom)** dari semua tabel yang Anda buat secara bersamaan, lalu mengelompokkan kecamatan yang memiliki kemiripan pola masalah menjadi beberapa zona/klaster.")
+    st.markdown("AI membaca indikator yang dipilih dan **menyelaraskan nilainya secara otomatis** (berdasarkan arah panah ⬇️/⬆️ di Tab 1), lalu mengelompokkan kecamatan ke dalam zona prioritas (Natural Breaks/Multi-dimensional Clustering).")
     
     if not st.session_state.koleksi_tabel:
         st.warning("⚠️ Tambahkan data di Tab 1 terlebih dahulu agar AI bisa mulai belajar (Training).")
     else:
         df_master = pd.DataFrame({"Kecamatan": DAFTAR_KECAMATAN})
+        df_untuk_ai = pd.DataFrame({"Kecamatan": DAFTAR_KECAMATAN}) # Data yang sudah di-invers khusus untuk mesin AI
         fitur_tersedia = []
         
         for tabel in st.session_state.koleksi_tabel:
             df_tabel = pd.DataFrame(tabel['data'])
-            for col in tabel['kolom_numerik']:
+            arah_panah_bawah = tabel['panah_bawah'] # Membaca status kriteria (Cost/Benefit)
+            
+            # --- MODIFIKASI: Menambahkan kolom 'Jumlah' untuk semua jenis tabel ---
+            if len(tabel['kolom_numerik']) > 0:
+                # Hitung ulang kolom Jumlah agar bisa dipilih
+                df_tabel['Jumlah'] = df_tabel[tabel['kolom_numerik']].sum(axis=1)
+                kolom_analisis = tabel['kolom_numerik'] + ["Jumlah"]
+            else:
+                kolom_analisis = ["Jumlah"]
+            
+            for col in kolom_analisis:
                 nama_unik = f"{col} ({tabel['judul']})"
+                
+                # Data asli untuk ditampilkan ke user
                 df_master[nama_unik] = df_tabel[col]
+                
+                # --- LOGIKA INVERS UNTUK AI ---
+                if arah_panah_bawah:
+                    # Kriteria Cost (Nilai tinggi = Parah). Tidak perlu diubah.
+                    df_untuk_ai[nama_unik] = df_tabel[col]
+                else:
+                    # Kriteria Benefit (Nilai rendah = Parah). 
+                    # DI-INVERS: Dikalikan -1 agar AI paham bahwa nilai yang makin kecil ini justru makin bermasalah
+                    df_untuk_ai[nama_unik] = df_tabel[col] * -1 
+                    
                 fitur_tersedia.append(nama_unik)
         
-        if len(fitur_tersedia) < 2:
-            st.info("⚠️ AI K-Means membutuhkan minimal 2 indikator (kolom) untuk bisa mengelompokkan wilayah dengan akurat. Silakan tambah kolom lagi di Tab 1.")
+        if len(fitur_tersedia) < 1:
+            st.info("⚠️ AI K-Means membutuhkan minimal 1 indikator (kolom) untuk bisa mengelompokkan wilayah. Silakan tambah data di Tab 1.")
         else:
             col_ai1, col_ai2 = st.columns([1, 2])
             
@@ -39,12 +63,29 @@ def render_tab3():
                 
                 if st.button("🚀 Jalankan AI K-Means", type="primary") or 'Klaster_ID' not in df_master.columns:
                     if len(fitur_terpilih) >= 1:
-                        X = df_master[fitur_terpilih]
+                        # 1. Mengambil data yang sudah diselaraskan (termasuk yang di-invers)
+                        X = df_untuk_ai[fitur_terpilih]
+                        
+                        # 2. Scaling Data
                         scaler = StandardScaler()
                         X_scaled = scaler.fit_transform(X)
                         
+                        # 3. Proses K-Means
                         kmeans = KMeans(n_clusters=n_clusters, random_state=42, n_init=10)
-                        df_master['Klaster_ID'] = kmeans.fit_predict(X_scaled)
+                        klaster_mentah = kmeans.fit_predict(X_scaled)
+                        
+                        # --- LOGIKA SORTING CENTROID (PENTING) ---
+                        # Agar Klaster 0 selalu Aman (Hijau) dan Klaster tertinggi selalu Kritis (Merah)
+                        rata_rata_klaster = []
+                        for i in range(n_clusters):
+                            # Menghitung rata-rata nilai tiap klaster
+                            rata_rata_klaster.append(X_scaled[klaster_mentah == i].mean())
+                        
+                        # Membuat pemetaan urutan klaster dari rata-rata terkecil hingga terbesar
+                        urutan_baru = {old_id: new_id for new_id, old_id in enumerate(np.argsort(rata_rata_klaster))}
+                        
+                        # Terapkan ID klaster yang sudah diurutkan ke data master
+                        df_master['Klaster_ID'] = [urutan_baru[k] for k in klaster_mentah]
                         
                         df_master['Status Zona'] = df_master['Klaster_ID'].map(label_klaster)
                         df_master['Koordinat'] = df_master['Kecamatan'].map(KECAMATAN_KUDUS_MAP)
@@ -60,6 +101,7 @@ def render_tab3():
                         koordinat = row['Koordinat']
                         klaster_id = row['Klaster_ID']
                         
+                        # Tooltip menampilkan data ASLI, bukan data invers
                         tooltip_html = f"<b>{row['Kecamatan']}</b><br><i>{row['Status Zona']}</i><hr>"
                         for fitur in fitur_terpilih:
                             tooltip_html += f"<small>{fitur}: {row[fitur]}</small><br>"
@@ -75,6 +117,7 @@ def render_tab3():
             
             st.markdown("#### 📊 Tabel Rincian Anggota Klaster")
             if 'hasil_kmeans' in st.session_state:
+                # Tampilkan tabel asli, tapi sudah diurutkan berdasarkan zona
                 df_tampil = st.session_state.hasil_kmeans[['Kecamatan', 'Status Zona'] + fitur_terpilih]
                 df_tampil = df_tampil.sort_values(by="Status Zona")
                 st.dataframe(df_tampil, use_container_width=True, hide_index=True)

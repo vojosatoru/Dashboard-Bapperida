@@ -1,5 +1,25 @@
 # Nama file: utils.py
 import streamlit as st
+import json
+import os
+
+# Nama file tempat data akan disimpan secara permanen di komputer Anda
+DATA_FILE = "data_bapperida.json"
+
+def muat_data():
+    """Memuat data dari file JSON lokal jika ada"""
+    if os.path.exists(DATA_FILE):
+        try:
+            with open(DATA_FILE, "r") as f:
+                return json.load(f)
+        except:
+            return [] # Jika file rusak, kembalikan list kosong
+    return []
+
+def simpan_data(data):
+    """Menyimpan data ke file JSON lokal secara otomatis"""
+    with open(DATA_FILE, "w") as f:
+        json.dump(data, f, indent=4)
 
 # --- KOORDINAT & DAFTAR KECAMATAN ---
 KECAMATAN_KUDUS_MAP = {
@@ -18,7 +38,10 @@ DAFTAR_KECAMATAN = list(KECAMATAN_KUDUS_MAP.keys())
 # --- INISIALISASI SESSION STATE ---
 def init_session_state():
     """Fungsi untuk memastikan memori aplikasi selalu siap sedia"""
-    if "koleksi_tabel" not in st.session_state: st.session_state.koleksi_tabel = []
+    if "koleksi_tabel" not in st.session_state: 
+        # Modifikasi: Mengisi tabel awal dari file JSON yang tersimpan, bukan list kosong
+        st.session_state.koleksi_tabel = muat_data() 
+        
     if "form_step" not in st.session_state: st.session_state.form_step = 0
     if "angka_acak_sementara" not in st.session_state: st.session_state.angka_acak_sementara = {}
     if "temp_judul" not in st.session_state: st.session_state.temp_judul = ""

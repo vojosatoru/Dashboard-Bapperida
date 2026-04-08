@@ -1,0 +1,80 @@
+[
+    {
+        "id": "33986259-a750-40c9-9971-f7ae24f375b0",
+        "judul": "rtlh",
+        "data": {
+            "Kecamatan": [
+                "Kaliwungu",
+                "Kota",
+                "Jati",
+                "Undaan",
+                "Mejobo",
+                "Jekulo",
+                "Bae",
+                "Gebog",
+                "Dawe"
+            ],
+            "Jumlah": [
+                195,
+                264,
+                102,
+                483,
+                384,
+                667,
+                722,
+                585,
+                828
+            ]
+        },
+        "kolom_numerik": [],
+        "warna": "#FF4B4B",
+        "active_sort_col": "Jumlah",
+        "panah_bawah": true
+    },
+    {
+        "id": "a73cfc70-5d28-48f1-9189-39bf0644497f",
+        "judul": "jumlah faskes",
+        "data": {
+            "Kecamatan": [
+                "Kaliwungu",
+                "Kota",
+                "Jati",
+                "Undaan",
+                "Mejobo",
+                "Jekulo",
+                "Bae",
+                "Gebog",
+                "Dawe"
+            ],
+            "rumah sakit": [
+                118,
+                161,
+                991,
+                734,
+                149,
+                995,
+                298,
+                408,
+                346
+            ],
+            "puskesmas": [
+                932,
+                529,
+                711,
+                934,
+                364,
+                558,
+                286,
+                857,
+                376
+            ]
+        },
+        "kolom_numerik": [
+            "rumah sakit",
+            "puskesmas"
+        ],
+        "warna": "#073bff",
+        "active_sort_col": "Jumlah",
+        "panah_bawah": true
+    }
+]
