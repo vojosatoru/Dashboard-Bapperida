@@ -24,13 +24,440 @@
                 298,
                 408,
                 346
+            ],
+            "puskesmas": [
+                900,
+                736,
+                278,
+                938,
+                25,
+                644,
+                233,
+                73,
+                911
             ]
         },
         "kolom_numerik": [
-            "rumah sakit"
+            "rumah sakit",
+            "puskesmas"
         ],
         "warna": "#073bff",
         "active_sort_col": "Jumlah",
-        "panah_bawah": false
+        "panah_bawah": false,
+        "history": [
+            {
+                "data": {
+                    "Kecamatan": [
+                        "Kaliwungu",
+                        "Kota",
+                        "Jati",
+                        "Undaan",
+                        "Mejobo",
+                        "Jekulo",
+                        "Bae",
+                        "Gebog",
+                        "Dawe"
+                    ],
+                    "rumah sakit": [
+                        118,
+                        161,
+                        991,
+                        734,
+                        149,
+                        995,
+                        298,
+                        408,
+                        346
+                    ]
+                },
+                "kolom_numerik": [
+                    "rumah sakit"
+                ],
+                "hapus_jumlah": false,
+                "active_sort_col": "Jumlah"
+            },
+            {
+                "data": {
+                    "Kecamatan": [
+                        "Kaliwungu",
+                        "Kota",
+                        "Jati",
+                        "Undaan",
+                        "Mejobo",
+                        "Jekulo",
+                        "Bae",
+                        "Gebog",
+                        "Dawe"
+                    ],
+                    "rumah sakit": [
+                        118,
+                        161,
+                        991,
+                        734,
+                        149,
+                        995,
+                        298,
+                        408,
+                        346
+                    ],
+                    "hehe": [
+                        1,
+                        1,
+                        0,
+                        1,
+                        1,
+                        1,
+                        0,
+                        0,
+                        0
+                    ]
+                },
+                "kolom_numerik": [
+                    "rumah sakit",
+                    "hehe"
+                ],
+                "hapus_jumlah": false,
+                "active_sort_col": "Jumlah"
+            },
+            {
+                "data": {
+                    "Kecamatan": [
+                        "Kaliwungu",
+                        "Kota",
+                        "Jati",
+                        "Undaan",
+                        "Mejobo",
+                        "Jekulo",
+                        "Bae",
+                        "Gebog",
+                        "Dawe"
+                    ],
+                    "rumah sakit": [
+                        118,
+                        161,
+                        991,
+                        734,
+                        149,
+                        995,
+                        298,
+                        408,
+                        346
+                    ]
+                },
+                "kolom_numerik": [
+                    "rumah sakit"
+                ],
+                "hapus_jumlah": false,
+                "active_sort_col": "Jumlah"
+            },
+            {
+                "data": {
+                    "Kecamatan": [
+                        "Kaliwungu",
+                        "Kota",
+                        "Jati",
+                        "Undaan",
+                        "Mejobo",
+                        "Jekulo",
+                        "Bae",
+                        "Gebog",
+                        "Dawe"
+                    ],
+                    "rumah sakit": [
+                        118,
+                        161,
+                        991,
+                        734,
+                        149,
+                        995,
+                        298,
+                        408,
+                        346
+                    ],
+                    "hehe": [
+                        541,
+                        268,
+                        207,
+                        153,
+                        611,
+                        549,
+                        670,
+                        647,
+                        432
+                    ]
+                },
+                "kolom_numerik": [
+                    "rumah sakit",
+                    "hehe"
+                ],
+                "hapus_jumlah": false,
+                "active_sort_col": "Jumlah"
+            },
+            {
+                "data": {
+                    "Kecamatan": [
+                        "Kaliwungu",
+                        "Kota",
+                        "Jati",
+                        "Undaan",
+                        "Mejobo",
+                        "Jekulo",
+                        "Bae",
+                        "Gebog",
+                        "Dawe"
+                    ],
+                    "rumah sakit": [
+                        118,
+                        161,
+                        991,
+                        734,
+                        149,
+                        995,
+                        298,
+                        408,
+                        346
+                    ]
+                },
+                "kolom_numerik": [
+                    "rumah sakit"
+                ],
+                "hapus_jumlah": false,
+                "active_sort_col": "rumah sakit"
+            },
+            {
+                "data": {
+                    "Kecamatan": [
+                        "Kaliwungu",
+                        "Kota",
+                        "Jati",
+                        "Undaan",
+                        "Mejobo",
+                        "Jekulo",
+                        "Bae",
+                        "Gebog",
+                        "Dawe"
+                    ],
+                    "rumah sakit": [
+                        118,
+                        161,
+                        991,
+                        734,
+                        149,
+                        995,
+                        298,
+                        408,
+                        346
+                    ],
+                    "puskesmas": [
+                        900,
+                        736,
+                        278,
+                        938,
+                        25,
+                        644,
+                        233,
+                        73,
+                        911
+                    ]
+                },
+                "kolom_numerik": [
+                    "rumah sakit",
+                    "puskesmas"
+                ],
+                "hapus_jumlah": false,
+                "active_sort_col": "rumah sakit"
+            }
+        ],
+        "history_index": 5,
+        "hapus_jumlah": false
+    },
+    {
+        "id": "6e8aa4ee-ad51-4399-b994-273a81fc73ec",
+        "judul": "Jumlah Tenaga Kesehatan Menurut Kecamatan Di Kabupaten Kudus, 2025",
+        "data": {
+            "Kecamatan": [
+                "Kaliwungu",
+                "Kota",
+                "Jati",
+                "Undaan",
+                "Mejobo",
+                "Jekulo",
+                "Bae",
+                "Gebog",
+                "Dawe"
+            ],
+            "Tenaga Kesehatan - Perawat": [
+                514,
+                387,
+                1177,
+                55,
+                49,
+                113,
+                53,
+                44,
+                44
+            ],
+            "Tenaga Kesehatan - Bidan": [
+                146,
+                206,
+                188,
+                61,
+                50,
+                102,
+                57,
+                57,
+                66
+            ],
+            "Tenaga Kesehatan - Tenaga Kefarmasian": [
+                126,
+                209,
+                204,
+                35,
+                33,
+                51,
+                55,
+                34,
+                49
+            ],
+            "Tenaga Kesehatan - Tenaga Kesehatan Masyarakat": [
+                8,
+                33,
+                6,
+                3,
+                3,
+                5,
+                5,
+                5,
+                3
+            ],
+            "Tenaga Kesehatan - Tenaga Kesehatan Lingkungan": [
+                4,
+                13,
+                7,
+                2,
+                2,
+                3,
+                2,
+                3,
+                2
+            ],
+            "Tenaga Kesehatan - Tenaga Gizi": [
+                10,
+                15,
+                18,
+                5,
+                4,
+                3,
+                2,
+                4,
+                3
+            ]
+        },
+        "kolom_numerik": [
+            "Tenaga Kesehatan - Perawat",
+            "Tenaga Kesehatan - Bidan",
+            "Tenaga Kesehatan - Tenaga Kefarmasian",
+            "Tenaga Kesehatan - Tenaga Kesehatan Masyarakat",
+            "Tenaga Kesehatan - Tenaga Kesehatan Lingkungan",
+            "Tenaga Kesehatan - Tenaga Gizi"
+        ],
+        "warna": "#FF4B4B",
+        "active_sort_col": "Jumlah",
+        "panah_bawah": false,
+        "hapus_jumlah": false,
+        "history": [
+            {
+                "data": {
+                    "Kecamatan": [
+                        "Kaliwungu",
+                        "Kota",
+                        "Jati",
+                        "Undaan",
+                        "Mejobo",
+                        "Jekulo",
+                        "Bae",
+                        "Gebog",
+                        "Dawe"
+                    ],
+                    "Tenaga Kesehatan - Perawat": [
+                        514,
+                        387,
+                        1177,
+                        55,
+                        49,
+                        113,
+                        53,
+                        44,
+                        44
+                    ],
+                    "Tenaga Kesehatan - Bidan": [
+                        146,
+                        206,
+                        188,
+                        61,
+                        50,
+                        102,
+                        57,
+                        57,
+                        66
+                    ],
+                    "Tenaga Kesehatan - Tenaga Kefarmasian": [
+                        126,
+                        209,
+                        204,
+                        35,
+                        33,
+                        51,
+                        55,
+                        34,
+                        49
+                    ],
+                    "Tenaga Kesehatan - Tenaga Kesehatan Masyarakat": [
+                        8,
+                        33,
+                        6,
+                        3,
+                        3,
+                        5,
+                        5,
+                        5,
+                        3
+                    ],
+                    "Tenaga Kesehatan - Tenaga Kesehatan Lingkungan": [
+                        4,
+                        13,
+                        7,
+                        2,
+                        2,
+                        3,
+                        2,
+                        3,
+                        2
+                    ],
+                    "Tenaga Kesehatan - Tenaga Gizi": [
+                        10,
+                        15,
+                        18,
+                        5,
+                        4,
+                        3,
+                        2,
+                        4,
+                        3
+                    ]
+                },
+                "kolom_numerik": [
+                    "Tenaga Kesehatan - Perawat",
+                    "Tenaga Kesehatan - Bidan",
+                    "Tenaga Kesehatan - Tenaga Kefarmasian",
+                    "Tenaga Kesehatan - Tenaga Kesehatan Masyarakat",
+                    "Tenaga Kesehatan - Tenaga Kesehatan Lingkungan",
+                    "Tenaga Kesehatan - Tenaga Gizi"
+                ],
+                "hapus_jumlah": false,
+                "active_sort_col": "Tenaga Kesehatan - Perawat"
+            }
+        ],
+        "history_index": 0
     }
 ]

@@ -7,6 +7,24 @@ from sklearn.preprocessing import StandardScaler
 import folium
 from streamlit_folium import st_folium
 from utils import DAFTAR_KECAMATAN, KECAMATAN_KUDUS_MAP
+import os
+import json
+
+# File untuk menyimpan konfigurasi Tab 3 agar kebal dari Refresh (F5)
+CONFIG_FILE_KMEANS = "config_kmeans.json"
+
+def muat_config_kmeans():
+    if os.path.exists(CONFIG_FILE_KMEANS):
+        try:
+            with open(CONFIG_FILE_KMEANS, "r") as f:
+                return json.load(f)
+        except:
+            return {}
+    return {}
+
+def simpan_config_kmeans(data):
+    with open(CONFIG_FILE_KMEANS, "w") as f:
+        json.dump(data, f)
 
 def render_tab3():
     st.subheader("🤖 Peta Zonasi AI (K-Means Clustering)")
@@ -23,7 +41,7 @@ def render_tab3():
             df_tabel = pd.DataFrame(tabel['data'])
             arah_panah_bawah = tabel['panah_bawah'] # Membaca status kriteria (Cost/Benefit)
             
-            # --- MODIFIKASI: Menambahkan kolom 'Jumlah' untuk semua jenis tabel ---
+            # Menambahkan kolom 'Jumlah' untuk semua jenis tabel
             if len(tabel['kolom_numerik']) > 0:
                 # Hitung ulang kolom Jumlah agar bisa dipilih
                 df_tabel['Jumlah'] = df_tabel[tabel['kolom_numerik']].sum(axis=1)
@@ -55,8 +73,43 @@ def render_tab3():
             
             with col_ai1:
                 st.markdown("#### ⚙️ Pengaturan AI")
-                fitur_terpilih = st.multiselect("Pilih Indikator yang Dianalisis:", fitur_tersedia, default=fitur_tersedia)
-                n_clusters = st.slider("Jumlah Zona Prioritas (Klaster)", min_value=2, max_value=4, value=3, help="Membagi Kudus menjadi berapa kelompok?")
+                
+                # --- PERBAIKAN TOTAL: Membaca & Menyimpan Konfigurasi ke File JSON ---
+                config_ai = muat_config_kmeans()
+                
+                # Ambil histori pilihan dari file, jika kosong gunakan semua fitur
+                saved_features = config_ai.get('ai_selected_features', fitur_tersedia)
+                
+                # Saring histori (membuang fitur yang mungkin sudah dihapus pengguna dari Tab 1)
+                valid_features = [f for f in saved_features if f in fitur_tersedia]
+                
+                # Jika setelah disaring kosong, kembali gunakan semua fitur
+                if not valid_features and fitur_tersedia:
+                    valid_features = fitur_tersedia
+
+                fitur_terpilih = st.multiselect(
+                    "Pilih Indikator yang Dianalisis:", 
+                    fitur_tersedia, 
+                    default=valid_features
+                )
+                
+                # Simpan otomatis ke file JSON jika ada perubahan pilihan
+                if fitur_terpilih != config_ai.get('ai_selected_features'):
+                    config_ai['ai_selected_features'] = fitur_terpilih
+                    simpan_config_kmeans(config_ai)
+                
+                saved_cluster = config_ai.get('ai_n_clusters', 3)
+                n_clusters = st.slider(
+                    "Jumlah Zona Prioritas (Klaster)", 
+                    min_value=2, max_value=4, 
+                    value=saved_cluster, 
+                    help="Membagi Kudus menjadi berapa kelompok?"
+                )
+                
+                # Simpan otomatis nilai klaster ke file JSON
+                if n_clusters != config_ai.get('ai_n_clusters'):
+                    config_ai['ai_n_clusters'] = n_clusters
+                    simpan_config_kmeans(config_ai)
                 
                 warna_klaster = {0: 'green', 1: 'orange', 2: 'red', 3: 'darkred'}
                 label_klaster = {0: "Zona 1 (Aman/Rendah)", 1: "Zona 2 (Waspada)", 2: "Zona 3 (Kritis)", 3: "Zona 4 (Sangat Kritis)"}
