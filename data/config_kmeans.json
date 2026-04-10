@@ -1,8 +1,7 @@
 {
     "ai_selected_features": [
-        "Jumlah (jumlah faskes)",
         "Jumlah (Jumlah Tenaga Kesehatan Menurut Kecamatan Di Kabupaten Kudus, 2025)",
-        "Jumlah (hehe)"
+        "Jumlah (Jumlah Desa Kelurahan Yang Memiliki Kantor Pos Menurut Kecamatan Di Kabupaten Kudus, 2025)"
     ],
     "ai_n_clusters": 3
 }

@@ -194,6 +194,27 @@ def render_tab3():
             
             st.markdown("#### 📊 Tabel Rincian Anggota Klaster")
             if 'hasil_kmeans' in st.session_state:
+                # Tampilkan tabel asli, tapi sudah diurutkan berdasarkan zona
                 df_tampil = st.session_state.hasil_kmeans[['Kecamatan', 'Status Zona'] + fitur_terpilih]
                 df_tampil = df_tampil.sort_values(by="Status Zona")
-                st.dataframe(df_tampil, use_container_width=True, hide_index=True)
+                
+                # --- PERBAIKAN: Konfigurasi Kolom untuk Mencegah Judul Terlalu Panjang di Tab 3 ---
+                config_kolom_tab3 = {
+                    "Kecamatan": st.column_config.TextColumn("Kecamatan", width="medium"),
+                    "Status Zona": st.column_config.TextColumn("Status Zona", width="medium")
+                }
+                
+                for fitur in fitur_terpilih:
+                    fitur_singkat = fitur if len(fitur) <= 20 else fitur[:20] + "..."
+                    config_kolom_tab3[fitur] = st.column_config.Column(
+                        label=fitur_singkat,
+                        help=f"Indikator Asli: {fitur}",
+                        width="medium"
+                    )
+                
+                st.dataframe(
+                    df_tampil, 
+                    use_container_width=True, 
+                    hide_index=True,
+                    column_config=config_kolom_tab3
+                )

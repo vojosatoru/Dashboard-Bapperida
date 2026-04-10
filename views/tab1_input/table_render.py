@@ -165,7 +165,26 @@ def render_tables():
             df_view = df[render_cols].sort_values(by=active_col, ascending=not tabel['panah_bawah']).reset_index(drop=True)
             df_berwarna = beri_warna_tabel(df_view, tabel['warna'], tabel['panah_bawah'], target_col=active_col)
             
-            edited_df = st.data_editor(df_berwarna, use_container_width=True, hide_index=True, disabled=disabled_cols, key=f"editor_{tabel_id}")
+            # --- PERBAIKAN: Konfigurasi Kolom untuk Mencegah Judul Terlalu Panjang di Tab 1 ---
+            config_kolom_tab1 = {
+                "Kecamatan": st.column_config.TextColumn("Kecamatan", width="medium")
+            }
+            for col in kolom_tampil:
+                col_singkat = col if len(col) <= 15 else col[:15] + "..."
+                config_kolom_tab1[col] = st.column_config.NumberColumn(
+                    label=col_singkat,
+                    help=f"Judul Kolom Utuh: {col}",
+                    width="medium"
+                )
+            
+            edited_df = st.data_editor(
+                df_berwarna, 
+                use_container_width=True, 
+                hide_index=True, 
+                disabled=disabled_cols, 
+                key=f"editor_{tabel_id}",
+                column_config=config_kolom_tab1
+            )
             
             df_kembali_standar = edited_df[edit_cols].set_index('Kecamatan').reindex(DAFTAR_KECAMATAN).reset_index()
             data_baru = df_kembali_standar.to_dict(orient='list')
