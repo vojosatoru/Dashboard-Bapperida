@@ -14,8 +14,8 @@ st.set_page_config(page_title="MURIA Bapperida", layout="wide", initial_sidebar_
 # --- INJEKSI CSS KUSTOM (MENGECILKAN SIDEBAR) ---
 st.markdown("""
     <style>
-        /* Mengecilkan lebar sidebar bawaan Streamlit */
-        [data-testid="stSidebar"] {
+        /* Mengecilkan lebar sidebar HANYA saat posisinya terbuka (expanded) */
+        [data-testid="stSidebar"][aria-expanded="true"] {
             min-width: 265px !important;
             max-width: 265px !important;
         }

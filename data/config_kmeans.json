@@ -1,9 +1,27 @@
 {
-    "ai_selected_features": [
-        "Jumlah (Jumlah Tenaga Kesehatan Menurut Kecamatan Di Kabupaten Kudus, 2025)",
-        "Jumlah (Jumlah Desa Kelurahan Yang Memiliki Kantor Pos Menurut Kecamatan Di Kabupaten Kudus, 2025)",
-        "Jumlah (Jumlah Desa Kelurahan Yang Mengalami Bencana Alam Menurut Kecamatan Di Kabupaten Kudus, 2025)",
-        "Jumlah (Daya Terpasang, Produksi, Dan Distribusi Listrik Pt. Pln (Persero) Pada Cabang Ranting Pln Menurut Kecamatan Di Kabupaten Kudus, 2023)"
-    ],
-    "ai_n_clusters": 4
+    "ai_selected_features": [],
+    "ai_n_clusters": 3,
+    "ai_sensitivity": 1.0,
+    "ai_weights": {
+        "Tenaga Kesehatan - Perawat (Jumlah Tenaga Kesehatan Menurut Kecamatan Di Kabupaten Kudus, 2025)": 1.0,
+        "Tenaga Kesehatan - Bidan (Jumlah Tenaga Kesehatan Menurut Kecamatan Di Kabupaten Kudus, 2025)": 1.0,
+        "Tenaga Kesehatan - Tenaga Kefarmasian (Jumlah Tenaga Kesehatan Menurut Kecamatan Di Kabupaten Kudus, 2025)": 1.0,
+        "Tenaga Kesehatan - Tenaga Kesehatan Masyarakat (Jumlah Tenaga Kesehatan Menurut Kecamatan Di Kabupaten Kudus, 2025)": 1.0,
+        "Tenaga Kesehatan - Tenaga Kesehatan Lingkungan (Jumlah Tenaga Kesehatan Menurut Kecamatan Di Kabupaten Kudus, 2025)": 1.0,
+        "Tenaga Kesehatan - Tenaga Gizi (Jumlah Tenaga Kesehatan Menurut Kecamatan Di Kabupaten Kudus, 2025)": 1.0,
+        "Jumlah (Jumlah Tenaga Kesehatan Menurut Kecamatan Di Kabupaten Kudus, 2025)": 1.0,
+        "Jumlah (Jumlah Desa Kelurahan Yang Memiliki Kantor Pos Menurut Kecamatan Di Kabupaten Kudus, 2025)": 1.0,
+        "Jumlah Desa/Kelurahan yang Mengalami Bencana Alam - Banjir (Jumlah Desa Kelurahan Yang Mengalami Bencana Alam Menurut Kecamatan Di Kabupaten Kudus, 2025)": 1.0,
+        "Jumlah Desa/Kelurahan yang Mengalami Bencana Alam - Gempa Bumi (Jumlah Desa Kelurahan Yang Mengalami Bencana Alam Menurut Kecamatan Di Kabupaten Kudus, 2025)": 1.0,
+        "Jumlah Desa/Kelurahan yang Mengalami Bencana Alam - Tanah Longsor (Jumlah Desa Kelurahan Yang Mengalami Bencana Alam Menurut Kecamatan Di Kabupaten Kudus, 2025)": 1.0,
+        "Jumlah (Jumlah Desa Kelurahan Yang Mengalami Bencana Alam Menurut Kecamatan Di Kabupaten Kudus, 2025)": 1.0,
+        "Daya Terpasang (VA) (Daya Terpasang, Produksi, Dan Distribusi Listrik Pt. Pln (Persero) Pada Cabang Ranting Pln Menurut Kecamatan Di Kabupaten Kudus, 2023)": 1.0,
+        "Produksi Listrik (kWh) (Daya Terpasang, Produksi, Dan Distribusi Listrik Pt. Pln (Persero) Pada Cabang Ranting Pln Menurut Kecamatan Di Kabupaten Kudus, 2023)": 1.0,
+        "Listrik Terjual (kWh) (Daya Terpasang, Produksi, Dan Distribusi Listrik Pt. Pln (Persero) Pada Cabang Ranting Pln Menurut Kecamatan Di Kabupaten Kudus, 2023)": 1.0,
+        "Dipakai Sendiri (kWh) (Daya Terpasang, Produksi, Dan Distribusi Listrik Pt. Pln (Persero) Pada Cabang Ranting Pln Menurut Kecamatan Di Kabupaten Kudus, 2023)": 1.0,
+        "Susut/Hilang (kWh) (Daya Terpasang, Produksi, Dan Distribusi Listrik Pt. Pln (Persero) Pada Cabang Ranting Pln Menurut Kecamatan Di Kabupaten Kudus, 2023)": 1.0,
+        "Jumlah (Daya Terpasang, Produksi, Dan Distribusi Listrik Pt. Pln (Persero) Pada Cabang Ranting Pln Menurut Kecamatan Di Kabupaten Kudus, 2023)": 1.0,
+        "Desa Kelurahan dengan Penerimaan Sinyal Internet - 5G/4G/LTE (Banyaknya Desa Kelurahan Menurut Kecamatan Dan Penerimaan\u00a0Sinyal Internet Telepon Seluler Di Kabupaten Kudus, 2025)": 1.0,
+        "Jumlah (Banyaknya Desa Kelurahan Menurut Kecamatan Dan Penerimaan\u00a0Sinyal Internet Telepon Seluler Di Kabupaten Kudus, 2025)": 1.0
+    }
 }

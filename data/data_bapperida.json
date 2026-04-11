@@ -451,6 +451,231 @@
         "warna": "#FF4B4B",
         "active_sort_col": "Daya Terpasang (VA)",
         "panah_bawah": true,
-        "hapus_jumlah": false
+        "hapus_jumlah": false,
+        "history": [
+            {
+                "data": {
+                    "Kecamatan": [
+                        "Kaliwungu",
+                        "Kota",
+                        "Jati",
+                        "Undaan",
+                        "Mejobo",
+                        "Jekulo",
+                        "Bae",
+                        "Gebog",
+                        "Dawe"
+                    ],
+                    "Daya Terpasang (VA)": [
+                        66766702,
+                        57143407,
+                        70100928,
+                        49409336,
+                        49953058,
+                        70036734,
+                        47692152,
+                        67296942,
+                        68816410
+                    ],
+                    "Produksi Listrik (kWh)": [
+                        158741746,
+                        135861799,
+                        166669065,
+                        117473593,
+                        118766323,
+                        166516440,
+                        113390886,
+                        160002424,
+                        163615048
+                    ],
+                    "Listrik Terjual (kWh)": [
+                        136493064,
+                        116819890,
+                        143309319,
+                        101008910,
+                        102120455,
+                        143178085,
+                        97498421,
+                        137577051,
+                        140683342
+                    ],
+                    "Dipakai Sendiri (kWh)": [
+                        425797,
+                        364426,
+                        447061,
+                        315103,
+                        318570,
+                        446652,
+                        304151,
+                        429179,
+                        438869
+                    ],
+                    "Susut/Hilang (kWh)": [
+                        8962698,
+                        7670876,
+                        9410281,
+                        6632662,
+                        6705651,
+                        9401664,
+                        6402149,
+                        9033877,
+                        9237849
+                    ]
+                },
+                "kolom_numerik": [
+                    "Daya Terpasang (VA)",
+                    "Produksi Listrik (kWh)",
+                    "Listrik Terjual (kWh)",
+                    "Dipakai Sendiri (kWh)",
+                    "Susut/Hilang (kWh)"
+                ],
+                "hapus_jumlah": false,
+                "active_sort_col": "Daya Terpasang (VA)"
+            }
+        ],
+        "history_index": 0
+    },
+    {
+        "id": "9ed8afbf-85ce-4167-9a2e-da3a723ac3ba",
+        "judul": "Banyaknya Desa Kelurahan Menurut Kecamatan Dan Penerimaan\u00a0Sinyal Internet Telepon Seluler Di Kabupaten Kudus, 2025",
+        "data": {
+            "Kecamatan": [
+                "Kaliwungu",
+                "Kota",
+                "Jati",
+                "Undaan",
+                "Mejobo",
+                "Jekulo",
+                "Bae",
+                "Gebog",
+                "Dawe"
+            ],
+            "Desa Kelurahan dengan Penerimaan Sinyal Internet - 5G/4G/LTE": [
+                15,
+                25,
+                14,
+                16,
+                11,
+                12,
+                10,
+                11,
+                18
+            ]
+        },
+        "kolom_numerik": [
+            "Desa Kelurahan dengan Penerimaan Sinyal Internet - 5G/4G/LTE"
+        ],
+        "warna": "#dfff4b",
+        "active_sort_col": "Desa Kelurahan dengan Penerimaan Sinyal Internet - 5G/4G/LTE",
+        "panah_bawah": false,
+        "hapus_jumlah": true,
+        "history": [
+            {
+                "data": {
+                    "Kecamatan": [
+                        "Kaliwungu",
+                        "Kota",
+                        "Jati",
+                        "Undaan",
+                        "Mejobo",
+                        "Jekulo",
+                        "Bae",
+                        "Gebog",
+                        "Dawe"
+                    ],
+                    "Desa Kelurahan dengan Penerimaan Sinyal Internet - 2,5G/E/ GPRS": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "Desa Kelurahan dengan Penerimaan Sinyal Internet - 5G/4G/LTE": [
+                        15,
+                        25,
+                        14,
+                        16,
+                        11,
+                        12,
+                        10,
+                        11,
+                        18
+                    ]
+                },
+                "kolom_numerik": [
+                    "Desa Kelurahan dengan Penerimaan Sinyal Internet - 2,5G/E/ GPRS",
+                    "Desa Kelurahan dengan Penerimaan Sinyal Internet - 5G/4G/LTE"
+                ],
+                "hapus_jumlah": false,
+                "active_sort_col": "Desa Kelurahan dengan Penerimaan Sinyal Internet - 2,5G/E/ GPRS"
+            },
+            {
+                "data": {
+                    "Kecamatan": [
+                        "Kaliwungu",
+                        "Kota",
+                        "Jati",
+                        "Undaan",
+                        "Mejobo",
+                        "Jekulo",
+                        "Bae",
+                        "Gebog",
+                        "Dawe"
+                    ],
+                    "Desa Kelurahan dengan Penerimaan Sinyal Internet - 5G/4G/LTE": [
+                        15,
+                        25,
+                        14,
+                        16,
+                        11,
+                        12,
+                        10,
+                        11,
+                        18
+                    ]
+                },
+                "kolom_numerik": [
+                    "Desa Kelurahan dengan Penerimaan Sinyal Internet - 5G/4G/LTE"
+                ],
+                "hapus_jumlah": false,
+                "active_sort_col": "Desa Kelurahan dengan Penerimaan Sinyal Internet - 5G/4G/LTE"
+            },
+            {
+                "data": {
+                    "Kecamatan": [
+                        "Kaliwungu",
+                        "Kota",
+                        "Jati",
+                        "Undaan",
+                        "Mejobo",
+                        "Jekulo",
+                        "Bae",
+                        "Gebog",
+                        "Dawe"
+                    ],
+                    "Desa Kelurahan dengan Penerimaan Sinyal Internet - 5G/4G/LTE": [
+                        15,
+                        25,
+                        14,
+                        16,
+                        11,
+                        12,
+                        10,
+                        11,
+                        18
+                    ]
+                },
+                "kolom_numerik": [
+                    "Desa Kelurahan dengan Penerimaan Sinyal Internet - 5G/4G/LTE"
+                ],
+                "hapus_jumlah": true,
+                "active_sort_col": "Desa Kelurahan dengan Penerimaan Sinyal Internet - 5G/4G/LTE"
+            }
+        ],
+        "history_index": 2
     }
 ]
