@@ -5,8 +5,8 @@ import plotly.express as px
 from utils.constants import DAFTAR_KECAMATAN
 
 def render_home():
-    st.subheader("🏠 Beranda Executive Bapperida")
-    st.markdown("Selamat datang di **Sistem Pendukung Keputusan & AI Spasial Kabupaten Kudus**. Berikut adalah ringkasan (*Executive Summary*) dari data yang telah dianalisis.")
+    st.subheader("🏠 Beranda Executive MURIA")
+    st.markdown("Selamat datang di **MURIA (Multidimensional Regional Intelligent Analytics)** Kabupaten Kudus. Berikut adalah ringkasan (*Executive Summary*) dari data yang telah dianalisis.")
     
     st.markdown("---")
     

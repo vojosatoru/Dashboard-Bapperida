@@ -9,7 +9,7 @@ from views.tab2_scoring import render_tab2
 from views.tab3_kmeans import render_tab3
 
 # --- PENGATURAN HALAMAN ---
-st.set_page_config(page_title="DSS & AI Clustering Bapperida", layout="wide", initial_sidebar_state="expanded")
+st.set_page_config(page_title="MURIA Bapperida", layout="wide", initial_sidebar_state="expanded")
 
 # --- INJEKSI CSS KUSTOM (MENGECILKAN SIDEBAR) ---
 st.markdown("""
@@ -32,7 +32,7 @@ init_session_state()
 
 # --- SIDEBAR NAVIGASI BAWAAN (STABIL) ---
 with st.sidebar:
-    st.title("🧭 Menu Bapperida")
+    st.title("🏔️ MURIA Bapperida")
     st.markdown("Pilih menu di bawah ini untuk berpindah halaman.")
     st.markdown("---")
 
@@ -75,12 +75,12 @@ with st.sidebar:
             st.rerun() # Memaksa halaman langsung dimuat ulang seketika
     
     st.markdown("---")
-    st.caption("✨ DSS & AI Spasial Bapperida")
+    st.caption("✨ MURIA - Kabupaten Kudus")
 
 selected_menu = st.session_state.active_menu_selector
 
 # --- HEADER APLIKASI (KONTEN UTAMA) ---
-st.title("📊 Sistem Pendukung Keputusan & AI Spasial")
+st.title("📊 MURIA: Multidimensional Regional Intelligent Analytics")
 st.markdown("Aplikasi ini menggabungkan metode *Scoring* tradisional dengan *Machine Learning* (K-Means) untuk menentukan prioritas wilayah secara cerdas.")
 st.markdown("---")
 
