@@ -1,0 +1,9 @@
+{
+    "ai_n_clusters": 3,
+    "ai_sensitivity": 1.0,
+    "ai_weights": {
+        "hindia (band)": 1.0,
+        "perunggu (band)": 1.0,
+        "Jumlah (band)": 1.0
+    }
+}

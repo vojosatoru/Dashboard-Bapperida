@@ -1,0 +1,12 @@
+{
+    "ai_n_clusters": 3,
+    "ai_sensitivity": 1.0,
+    "ai_weights": {
+        "Jumlah (Jumlah Tenaga Kesehatan Menurut Kecamatan Di Kabupaten Kudus, 2025)": 1.0,
+        "Daya Terpasang (VA) (Daya Terpasang, Produksi, Dan Distribusi Listrik Pt. Pln (Persero) Pada Cabang Ranting Pln Menurut Kecamatan Di Kabupaten Kudus, 2023)": 1.0
+    },
+    "ai_selected_features": [
+        "Jumlah (Jumlah Tenaga Kesehatan Menurut Kecamatan Di Kabupaten Kudus, 2025)",
+        "Daya Terpasang (VA) (Daya Terpasang, Produksi, Dan Distribusi Listrik Pt. Pln (Persero) Pada Cabang Ranting Pln Menurut Kecamatan Di Kabupaten Kudus, 2023)"
+    ]
+}

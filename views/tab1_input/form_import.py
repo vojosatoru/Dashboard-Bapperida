@@ -48,12 +48,12 @@ def render_step_4():
                 # --- FITUR BARU: PRATINJAU DATA MENTAH ---
                 with st.expander("👀 Pratinjau Tabel Mentah (Klik untuk melipat)", expanded=True):
                     st.caption("Jika Anda melihat kolom bernama **'Unnamed'**, berarti Anda salah mengatur Baris Judul. Silakan ubah angka 'Baris Judul Kolom' di atas menjadi baris yang benar.")
-                    try:
-                        # Format angka agar menggunakan titik sebagai pemisah ribuan
-                        st.dataframe(df_import.head(4).style.format(thousands="."), use_container_width=True)
-                    except Exception:
-                        # Fallback jika terjadi error
-                        st.dataframe(df_import.head(4), use_container_width=True)
+                    
+                    # PERBAIKAN ERROR PYARROW:
+                    # Mengonversi seluruh data pratinjau menjadi teks (string) secara paksa.
+                    # Ini mencegah terminal Streamlit protes jika ada kolom berisi campuran angka & huruf.
+                    df_preview = df_import.head(4).astype(str)
+                    st.dataframe(df_preview, use_container_width=True)
                 
                 kec_col_guess = None
                 for col in df_import.columns:

@@ -6,8 +6,15 @@ import copy
 
 # Pindahkan file database ke dalam folder 'data' agar direktori root tetap bersih
 DATA_DIR = "data"
-DATA_FILE = os.path.join(DATA_DIR, "data_bapperida.json")
-CONFIG_FILE_KMEANS = os.path.join(DATA_DIR, "config_kmeans.json")
+
+def get_data_file():
+    # Mengambil kunci proyek dari memori, jika kosong gunakan 'publik'
+    key = st.session_state.get('project_key', 'publik')
+    return os.path.join(DATA_DIR, f"data_{key}.json")
+
+def get_config_file():
+    key = st.session_state.get('project_key', 'publik')
+    return os.path.join(DATA_DIR, f"config_{key}.json")
 
 def pastikan_folder_ada():
     if not os.path.exists(DATA_DIR):
@@ -15,9 +22,10 @@ def pastikan_folder_ada():
 
 # --- FUNGSI MANAJEMEN DATA JSON ---
 def muat_data():
-    if os.path.exists(DATA_FILE):
+    file_path = get_data_file()
+    if os.path.exists(file_path):
         try:
-            with open(DATA_FILE, "r") as f:
+            with open(file_path, "r") as f:
                 return json.load(f)
         except:
             return []
@@ -25,13 +33,14 @@ def muat_data():
 
 def simpan_data(data):
     pastikan_folder_ada()
-    with open(DATA_FILE, "w") as f:
+    with open(get_data_file(), "w") as f:
         json.dump(data, f, indent=4)
 
 def muat_config_kmeans():
-    if os.path.exists(CONFIG_FILE_KMEANS):
+    file_path = get_config_file()
+    if os.path.exists(file_path):
         try:
-            with open(CONFIG_FILE_KMEANS, "r") as f:
+            with open(file_path, "r") as f:
                 return json.load(f)
         except:
             return {}
@@ -39,7 +48,7 @@ def muat_config_kmeans():
 
 def simpan_config_kmeans(data):
     pastikan_folder_ada()
-    with open(CONFIG_FILE_KMEANS, "w") as f:
+    with open(get_config_file(), "w") as f:
         json.dump(data, f, indent=4)
 
 # --- INISIALISASI SESSION STATE & HISTORY UNDO/REDO ---

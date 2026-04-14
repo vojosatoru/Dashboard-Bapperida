@@ -75,6 +75,24 @@ with st.sidebar:
             st.rerun() # Memaksa halaman langsung dimuat ulang seketika
     
     st.markdown("---")
+    
+    # --- FITUR PROJECT KEY (RUANG KERJA) ---
+    with st.expander("⚙️ Pengaturan Ruang Kerja Lanjutan", expanded=False):
+        pj_key = st.text_input(
+            "🔑 Kunci Proyek:", 
+            value=st.session_state.get('project_key', 'publik'),
+            help="Gunakan kunci yang sama dengan rekan Anda untuk berkolaborasi pada data yang sama."
+        )
+        # Jika user mengubah kunci proyek
+        if pj_key.strip().lower() != st.session_state.get('project_key', 'publik'):
+            st.session_state['project_key'] = pj_key.strip().lower()
+            # Hapus cache memori agar data baru dimuat dari file JSON yang sesuai
+            if 'koleksi_tabel' in st.session_state:
+                del st.session_state['koleksi_tabel']
+            if 'hasil_kmeans' in st.session_state:
+                del st.session_state['hasil_kmeans']
+            st.rerun()
+
     st.caption("✨ MURIA - Kabupaten Kudus")
 
 selected_menu = st.session_state.active_menu_selector

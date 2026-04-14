@@ -1,0 +1,356 @@
+[
+    {
+        "id": "d94bd087-f6b0-4cbf-ba28-2680289fc697",
+        "judul": "Jumlah Tenaga Kesehatan Menurut Kecamatan Di Kabupaten Kudus, 2025",
+        "data": {
+            "Kecamatan": [
+                "Kaliwungu",
+                "Kota",
+                "Jati",
+                "Undaan",
+                "Mejobo",
+                "Jekulo",
+                "Bae",
+                "Gebog",
+                "Dawe"
+            ],
+            "Tenaga Kesehatan - Perawat": [
+                514,
+                387,
+                1175,
+                55,
+                49,
+                113,
+                53,
+                44,
+                44
+            ],
+            "Tenaga Kesehatan - Bidan": [
+                146,
+                206,
+                188,
+                61,
+                50,
+                102,
+                57,
+                57,
+                66
+            ],
+            "Tenaga Kesehatan - Tenaga Kefarmasian": [
+                126,
+                209,
+                204,
+                35,
+                33,
+                51,
+                55,
+                34,
+                49
+            ],
+            "Tenaga Kesehatan - Tenaga Kesehatan Masyarakat": [
+                8,
+                33,
+                6,
+                3,
+                3,
+                5,
+                5,
+                5,
+                3
+            ],
+            "Tenaga Kesehatan - Tenaga Kesehatan Lingkungan": [
+                4,
+                13,
+                7,
+                2,
+                2,
+                3,
+                2,
+                3,
+                2
+            ],
+            "Tenaga Kesehatan - Tenaga Gizi": [
+                10,
+                15,
+                18,
+                5,
+                4,
+                3,
+                2,
+                4,
+                3
+            ]
+        },
+        "kolom_numerik": [
+            "Tenaga Kesehatan - Perawat",
+            "Tenaga Kesehatan - Bidan",
+            "Tenaga Kesehatan - Tenaga Kefarmasian",
+            "Tenaga Kesehatan - Tenaga Kesehatan Masyarakat",
+            "Tenaga Kesehatan - Tenaga Kesehatan Lingkungan",
+            "Tenaga Kesehatan - Tenaga Gizi"
+        ],
+        "warna": "#FF4B4B",
+        "active_sort_col": "Jumlah",
+        "panah_bawah": false,
+        "hapus_jumlah": false,
+        "history": [
+            {
+                "data": {
+                    "Kecamatan": [
+                        "Kaliwungu",
+                        "Kota",
+                        "Jati",
+                        "Undaan",
+                        "Mejobo",
+                        "Jekulo",
+                        "Bae",
+                        "Gebog",
+                        "Dawe"
+                    ],
+                    "Tenaga Kesehatan - Perawat": [
+                        514,
+                        387,
+                        1175,
+                        55,
+                        49,
+                        113,
+                        53,
+                        44,
+                        44
+                    ],
+                    "Tenaga Kesehatan - Bidan": [
+                        146,
+                        206,
+                        188,
+                        61,
+                        50,
+                        102,
+                        57,
+                        57,
+                        66
+                    ],
+                    "Tenaga Kesehatan - Tenaga Kefarmasian": [
+                        126,
+                        209,
+                        204,
+                        35,
+                        33,
+                        51,
+                        55,
+                        34,
+                        49
+                    ],
+                    "Tenaga Kesehatan - Tenaga Kesehatan Masyarakat": [
+                        8,
+                        33,
+                        6,
+                        3,
+                        3,
+                        5,
+                        5,
+                        5,
+                        3
+                    ],
+                    "Tenaga Kesehatan - Tenaga Kesehatan Lingkungan": [
+                        4,
+                        13,
+                        7,
+                        2,
+                        2,
+                        3,
+                        2,
+                        3,
+                        2
+                    ],
+                    "Tenaga Kesehatan - Tenaga Gizi": [
+                        10,
+                        15,
+                        18,
+                        5,
+                        4,
+                        3,
+                        2,
+                        4,
+                        3
+                    ]
+                },
+                "kolom_numerik": [
+                    "Tenaga Kesehatan - Perawat",
+                    "Tenaga Kesehatan - Bidan",
+                    "Tenaga Kesehatan - Tenaga Kefarmasian",
+                    "Tenaga Kesehatan - Tenaga Kesehatan Masyarakat",
+                    "Tenaga Kesehatan - Tenaga Kesehatan Lingkungan",
+                    "Tenaga Kesehatan - Tenaga Gizi"
+                ],
+                "hapus_jumlah": false,
+                "active_sort_col": "Tenaga Kesehatan - Perawat"
+            }
+        ],
+        "history_index": 0
+    },
+    {
+        "id": "2ac72b9d-68b3-402a-850e-f0c416de215f",
+        "judul": "Daya Terpasang, Produksi, Dan Distribusi Listrik Pt. Pln (Persero) Pada Cabang Ranting Pln Menurut Kecamatan Di Kabupaten Kudus, 2023",
+        "data": {
+            "Kecamatan": [
+                "Kaliwungu",
+                "Kota",
+                "Jati",
+                "Undaan",
+                "Mejobo",
+                "Jekulo",
+                "Bae",
+                "Gebog",
+                "Dawe"
+            ],
+            "Daya Terpasang (VA)": [
+                66766702,
+                57143407,
+                70100928,
+                49409336,
+                49953058,
+                70036734,
+                47692152,
+                67296942,
+                68816410
+            ],
+            "Produksi Listrik (kWh)": [
+                158741746,
+                135861799,
+                166669065,
+                117473593,
+                118766323,
+                166516440,
+                113390886,
+                160002424,
+                163615048
+            ],
+            "Listrik Terjual (kWh)": [
+                136493064,
+                116819890,
+                143309319,
+                101008910,
+                102120455,
+                143178085,
+                97498421,
+                137577051,
+                140683342
+            ],
+            "Dipakai Sendiri (kWh)": [
+                425797,
+                364426,
+                447061,
+                315103,
+                318570,
+                446652,
+                304151,
+                429179,
+                438869
+            ],
+            "Susut/Hilang (kWh)": [
+                8962698,
+                7670876,
+                9410281,
+                6632662,
+                6705651,
+                9401664,
+                6402149,
+                9033877,
+                9237849
+            ]
+        },
+        "kolom_numerik": [
+            "Daya Terpasang (VA)",
+            "Produksi Listrik (kWh)",
+            "Listrik Terjual (kWh)",
+            "Dipakai Sendiri (kWh)",
+            "Susut/Hilang (kWh)"
+        ],
+        "warna": "#FF4B4B",
+        "active_sort_col": "Daya Terpasang (VA)",
+        "panah_bawah": false,
+        "hapus_jumlah": false,
+        "history": [
+            {
+                "data": {
+                    "Kecamatan": [
+                        "Kaliwungu",
+                        "Kota",
+                        "Jati",
+                        "Undaan",
+                        "Mejobo",
+                        "Jekulo",
+                        "Bae",
+                        "Gebog",
+                        "Dawe"
+                    ],
+                    "Daya Terpasang (VA)": [
+                        66766702,
+                        57143407,
+                        70100928,
+                        49409336,
+                        49953058,
+                        70036734,
+                        47692152,
+                        67296942,
+                        68816410
+                    ],
+                    "Produksi Listrik (kWh)": [
+                        158741746,
+                        135861799,
+                        166669065,
+                        117473593,
+                        118766323,
+                        166516440,
+                        113390886,
+                        160002424,
+                        163615048
+                    ],
+                    "Listrik Terjual (kWh)": [
+                        136493064,
+                        116819890,
+                        143309319,
+                        101008910,
+                        102120455,
+                        143178085,
+                        97498421,
+                        137577051,
+                        140683342
+                    ],
+                    "Dipakai Sendiri (kWh)": [
+                        425797,
+                        364426,
+                        447061,
+                        315103,
+                        318570,
+                        446652,
+                        304151,
+                        429179,
+                        438869
+                    ],
+                    "Susut/Hilang (kWh)": [
+                        8962698,
+                        7670876,
+                        9410281,
+                        6632662,
+                        6705651,
+                        9401664,
+                        6402149,
+                        9033877,
+                        9237849
+                    ]
+                },
+                "kolom_numerik": [
+                    "Daya Terpasang (VA)",
+                    "Produksi Listrik (kWh)",
+                    "Listrik Terjual (kWh)",
+                    "Dipakai Sendiri (kWh)",
+                    "Susut/Hilang (kWh)"
+                ],
+                "hapus_jumlah": false,
+                "active_sort_col": "Daya Terpasang (VA)"
+            }
+        ],
+        "history_index": 0
+    }
+]

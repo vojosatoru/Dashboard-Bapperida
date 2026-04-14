@@ -1,0 +1,95 @@
+[
+    {
+        "id": "a3a568b0-cd8f-4e49-96e6-5048ee23c2b3",
+        "judul": "band",
+        "data": {
+            "Kecamatan": [
+                "Kaliwungu",
+                "Kota",
+                "Jati",
+                "Undaan",
+                "Mejobo",
+                "Jekulo",
+                "Bae",
+                "Gebog",
+                "Dawe"
+            ],
+            "hindia": [
+                805,
+                637,
+                481,
+                946,
+                766,
+                98,
+                855,
+                719,
+                508
+            ],
+            "perunggu": [
+                399,
+                714,
+                216,
+                982,
+                380,
+                892,
+                373,
+                857,
+                82
+            ]
+        },
+        "kolom_numerik": [
+            "hindia",
+            "perunggu"
+        ],
+        "warna": "#FF4B4B",
+        "active_sort_col": "hindia",
+        "panah_bawah": true,
+        "hapus_jumlah": false,
+        "history": [
+            {
+                "data": {
+                    "Kecamatan": [
+                        "Kaliwungu",
+                        "Kota",
+                        "Jati",
+                        "Undaan",
+                        "Mejobo",
+                        "Jekulo",
+                        "Bae",
+                        "Gebog",
+                        "Dawe"
+                    ],
+                    "hindia": [
+                        805,
+                        637,
+                        481,
+                        946,
+                        766,
+                        98,
+                        855,
+                        719,
+                        508
+                    ],
+                    "perunggu": [
+                        399,
+                        714,
+                        216,
+                        982,
+                        380,
+                        892,
+                        373,
+                        857,
+                        82
+                    ]
+                },
+                "kolom_numerik": [
+                    "hindia",
+                    "perunggu"
+                ],
+                "hapus_jumlah": false,
+                "active_sort_col": "hindia"
+            }
+        ],
+        "history_index": 0
+    }
+]
