@@ -8,17 +8,34 @@ def render_pengaturan_ai(df_untuk_ai, df_master, fitur_tersedia):
     st.markdown("#### ⚙️ Pengaturan AI")
     
     config_ai = muat_config_kmeans()
+    
+    # Saring history memori agar tidak error jika ada data yang dihapus di Tab 1
     saved_features = config_ai.get('ai_selected_features', fitur_tersedia)
     valid_features = [f for f in saved_features if f in fitur_tersedia]
-    
     if not valid_features and fitur_tersedia:
         valid_features = fitur_tersedia
 
-    fitur_terpilih = st.multiselect("Pilih Indikator yang Dianalisis:", fitur_tersedia, default=valid_features)
-    
-    if fitur_terpilih != config_ai.get('ai_selected_features'):
-        config_ai['ai_selected_features'] = fitur_terpilih
+    # --- PERBAIKAN BUG DOUBLE CLICK ---
+    # 1. Inisialisasi memori internal Streamlit (Hanya berjalan sekali saat awal)
+    if 'ms_fitur_ai' not in st.session_state:
+        st.session_state['ms_fitur_ai'] = valid_features
+    else:
+        # Sanitasi memastikan pilihan lama yang sudah dihapus tidak nyangkut
+        st.session_state['ms_fitur_ai'] = [f for f in st.session_state['ms_fitur_ai'] if f in fitur_tersedia]
+
+    # 2. Fungsi seketika (Callback) saat user mengklik Multiselect
+    def update_fitur_config():
+        config_ai['ai_selected_features'] = st.session_state['ms_fitur_ai']
         simpan_config_kmeans(config_ai)
+
+    # 3. Multiselect kini dikendalikan oleh 'key', bukan 'default'
+    fitur_terpilih = st.multiselect(
+        "Pilih Indikator yang Dianalisis:", 
+        fitur_tersedia, 
+        key='ms_fitur_ai',
+        on_change=update_fitur_config
+    )
+    # ----------------------------------
     
     saved_cluster = config_ai.get('ai_n_clusters', 3)
     n_clusters = st.slider("Jumlah Zona Prioritas (Klaster)", min_value=2, max_value=4, value=saved_cluster)
@@ -65,6 +82,9 @@ def render_pengaturan_ai(df_untuk_ai, df_master, fitur_tersedia):
     
     if col_reset.button("🔄 Reset Default", help="Kembalikan semua slider ke angka standar (1.0)"):
         simpan_config_kmeans({}) 
+        # Hapus state agar indikator kembali penuh saat di-reset
+        if 'ms_fitur_ai' in st.session_state:
+            del st.session_state['ms_fitur_ai']
         if 'hasil_kmeans' in st.session_state:
             del st.session_state['hasil_kmeans']
         st.rerun()
