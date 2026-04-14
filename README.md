@@ -7,6 +7,10 @@ Aplikasi web pintar ini dibangunkan khusus untuk Badan Perencanaan Pembangunan, 
 
 ## ✨ Fitur Utama
 
+### 🤝 Keamanan Data & Kolaborasi
+* **Ruang Kerja Terisolasi (Project Key):** Memungkinkan banyak staf bekerja secara aman dan mandiri. Dengan memasukkan "Kunci Proyek" rahasia di menu pengaturan lanjutan, setiap sesi kerja akan memiliki workspace datanya masing-masing sehingga tidak saling menimpa.
+* **Ekspor & Impor Proyek Offline (.json):** Fitur penyimpanan (backup) tangguh untuk mengunduh seluruh tabel indikator dan pengaturan bobot AI ke dalam komputer lokal/flashdisk. Menjamin data 100% aman dan dapat dilanjutkan kapan saja meskipun server pusat mengalami restart.
+
 ### 🏠 Beranda Executive (Modul Utama)
 * **Ringkasan Eksekutif:** Menampilkan *Key Performance Indicators* (KPI) seperti jumlah indikator yang dianalisis dan status sistem AI.
 * **Deteksi Zona Kritis Dinamis:** AI secara otomatis menghitung dan menampilkan jumlah kecamatan yang berada dalam zona paling kritis.
