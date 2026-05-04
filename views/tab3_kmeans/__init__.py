@@ -1,5 +1,6 @@
 # views/tab3_kmeans/__init__.py
 import streamlit as st
+from utils.state_manager import muat_config_kmeans
 
 # Mengimpor sub-modul yang telah dipisah
 from views.tab3_kmeans.data_prep import siapkan_data_koleksi
@@ -15,8 +16,17 @@ def render_tab3():
         st.warning("⚠️ Tambahkan data di Tab 1 terlebih dahulu agar AI bisa mulai belajar (Training).")
         return
         
-    # 1. Tahap Persiapan Data
-    df_master, df_untuk_ai, fitur_tersedia = siapkan_data_koleksi(st.session_state.koleksi_tabel)
+    # --- MENGAMBIL KONFIGURASI NORMALISASI & PROFIL DASAR ---
+    config_ai = muat_config_kmeans()
+    jenis_norm = config_ai.get('ai_normalisasi', 'Absolut')
+    data_dasar = st.session_state.get('data_dasar', None)
+        
+    # 1. Tahap Persiapan Data (Terintegrasi dengan Normalisasi)
+    df_master, df_untuk_ai, fitur_tersedia = siapkan_data_koleksi(
+        st.session_state.koleksi_tabel,
+        jenis_normalisasi=jenis_norm,
+        data_dasar=data_dasar
+    )
     
     if len(fitur_tersedia) < 1:
         st.info("⚠️ AI K-Means membutuhkan minimal 1 indikator (kolom) untuk bisa mengelompokkan wilayah.")

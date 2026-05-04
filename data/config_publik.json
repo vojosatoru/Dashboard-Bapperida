@@ -1,14 +1,17 @@
 {
     "ai_n_clusters": 3,
-    "ai_sensitivity": 1.0,
+    "ai_sensitivity": 3.0,
     "ai_weights": {
-        "Jumlah (Jumlah Tenaga Kesehatan Menurut Kecamatan Di Kabupaten Kudus, 2025)": 0.8,
-        "Daya Terpasang (VA) (Daya Terpasang, Produksi, Dan Distribusi Listrik Pt. Pln (Persero) Pada Cabang Ranting Pln Menurut Kecamatan Di Kabupaten Kudus, 2023)": 2.0,
-        "Jumlah (Jumlah Desa Kelurahan Yang Mengalami Bencana Alam Menurut Kecamatan Di Kabupaten Kudus, 2025)": 5.0
+        "Jumlah (Jumlah Tenaga Kesehatan Menurut Kecamatan Di Kabupaten Kudus, 2025) [Per Kapita]": 1.0,
+        "Jumlah (Jumlah Desa Kelurahan Yang Mengalami Bencana Alam Menurut Kecamatan Di Kabupaten Kudus, 2025) [Per Kapita]": 1.0,
+        "Jumlah (Jumlah Rumah Sakit Umum, Rumah Sakit Ibu Dan Anak, Puskesmas, Klinik Pratama, Dan Posyandu Menurut Kecamatan Di Kabupaten Kudus, 2025) [Per Kapita]": 1.0,
+        "Daya Terpasang (VA) (Daya Terpasang, Produksi, Dan Distribusi Listrik Pt. Pln (Persero) Pada Cabang Ranting Pln Menurut Kecamatan Di Kabupaten Kudus, 2023) [Per Kapita]": 1.0
     },
     "ai_selected_features": [
-        "Jumlah (Jumlah Tenaga Kesehatan Menurut Kecamatan Di Kabupaten Kudus, 2025)",
-        "Daya Terpasang (VA) (Daya Terpasang, Produksi, Dan Distribusi Listrik Pt. Pln (Persero) Pada Cabang Ranting Pln Menurut Kecamatan Di Kabupaten Kudus, 2023)",
-        "Jumlah (Jumlah Desa Kelurahan Yang Mengalami Bencana Alam Menurut Kecamatan Di Kabupaten Kudus, 2025)"
-    ]
+        "Jumlah (Jumlah Tenaga Kesehatan Menurut Kecamatan Di Kabupaten Kudus, 2025) [Per Kapita]",
+        "Jumlah (Jumlah Desa Kelurahan Yang Mengalami Bencana Alam Menurut Kecamatan Di Kabupaten Kudus, 2025) [Per Kapita]",
+        "Jumlah (Jumlah Rumah Sakit Umum, Rumah Sakit Ibu Dan Anak, Puskesmas, Klinik Pratama, Dan Posyandu Menurut Kecamatan Di Kabupaten Kudus, 2025) [Per Kapita]",
+        "Daya Terpasang (VA) (Daya Terpasang, Produksi, Dan Distribusi Listrik Pt. Pln (Persero) Pada Cabang Ranting Pln Menurut Kecamatan Di Kabupaten Kudus, 2023) [Per Kapita]"
+    ],
+    "ai_normalisasi": "Per Kapita (Bagi Penduduk)"
 }

@@ -2,26 +2,11 @@
 import streamlit as st
 import pandas as pd
 from utils.constants import DAFTAR_KECAMATAN
+from utils.state_manager import simpan_profil_dasar, reset_profil_dasar, muat_profil_dasar
 
 def render_profil_dasar():
     st.subheader("🏢 Bagian A: Profil Dasar Wilayah")
     st.markdown("Data **Luas Daerah** dan **Jumlah Penduduk** wajib ada dan akan digunakan sebagai patokan rasio (pembagi) oleh mesin AI K-Means untuk mencegah *Size Bias* (bias ukuran kewilayahan).")
-
-    # ---------------------------------------------------------
-    # INISIALISASI DATA BAWAAN (DEFAULT) JIKA KOSONG
-    # ---------------------------------------------------------
-    if 'data_dasar' not in st.session_state:
-        # Data Aproksimasi Kabupaten Kudus 2025/2026
-        data_luas = [32.71, 10.47, 26.30, 71.77, 36.77, 82.92, 23.33, 55.01, 85.84]
-        data_penduduk = [105.2, 91.5, 112.8, 80.4, 78.1, 110.3, 73.6, 100.2, 108.5]
-        
-        df_kalkulasi_ai = pd.DataFrame({
-            "Kecamatan": DAFTAR_KECAMATAN,
-            "Luas Wilayah (km2)": data_luas,
-            "Jumlah Penduduk (Jiwa)": [x * 1000 for x in data_penduduk]
-        })
-        st.session_state.data_dasar = df_kalkulasi_ai
-        st.session_state.sumber_profil = "Data Statis BPS Kudus 2025/2026"
 
     # Inisialisasi state untuk mengontrol Tab yang aktif
     if 'active_tab_profil' not in st.session_state:
@@ -41,9 +26,6 @@ def render_profil_dasar():
     except ValueError:
         default_idx = 0
 
-    # Streamlit tabs tidak mendukung kwarg 'default' secara langsung untuk berpindah
-    # Namun pada Streamlit >= 1.34 kita tidak bisa set active tab dari code dengan mudah.
-    # Alternatif terbaik adalah tetap biarkan user memilih tab, tapi kita simpan logic suksesnya.
     tab_aktif, tab_import = st.tabs(tabs_list)
 
     with tab_aktif:
@@ -54,9 +36,10 @@ def render_profil_dasar():
             # Tombol reset muncul jika menggunakan file custom
             if st.session_state.get('sumber_profil') != "Data Statis BPS Kudus 2025/2026":
                 if st.button("🔄 Kembalikan ke Data Bawaan BPS", type="secondary"):
-                    del st.session_state['data_dasar']
-                    if 'sumber_profil' in st.session_state:
-                        del st.session_state['sumber_profil']
+                    reset_profil_dasar() # Hapus file JSON
+                    df_default, sumber_default = muat_profil_dasar() # Muat ulang default
+                    st.session_state.data_dasar = df_default
+                    st.session_state.sumber_profil = sumber_default
                     st.rerun()
 
     with tab_import:
@@ -165,8 +148,12 @@ def render_profil_dasar():
                                 pass
                                 
                         # Simpan pembaruan ke memori
+                        sumber_baru = f"Custom (Diperbarui: {target_nama})"
                         st.session_state.data_dasar = temp_df
-                        st.session_state.sumber_profil = f"Custom (Diperbarui: {target_nama})"
+                        st.session_state.sumber_profil = sumber_baru
+                        
+                        # SIMPAN KE FILE JSON
+                        simpan_profil_dasar(temp_df, sumber_baru)
                         
                         # Berikan tanda bahwa import sukses
                         st.session_state.import_profil_sukses = True

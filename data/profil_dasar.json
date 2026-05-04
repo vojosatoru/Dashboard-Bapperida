@@ -1,0 +1,38 @@
+{
+    "data": {
+        "Kecamatan": [
+            "Kaliwungu",
+            "Kota",
+            "Jati",
+            "Undaan",
+            "Mejobo",
+            "Jekulo",
+            "Bae",
+            "Gebog",
+            "Dawe"
+        ],
+        "Luas Wilayah (km2)": [
+            32.71,
+            10.47,
+            26.3,
+            71.77,
+            36.77,
+            82.92,
+            23.32,
+            55.06,
+            85.84
+        ],
+        "Jumlah Penduduk (Jiwa)": [
+            110100.0,
+            89800.0,
+            114100.0,
+            80800.0,
+            81800.0,
+            114200.0,
+            78200.0,
+            110200.0,
+            112600.0
+        ]
+    },
+    "sumber": "Custom (Diperbarui: Jumlah Penduduk)"
+}
