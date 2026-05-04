@@ -469,5 +469,194 @@
             }
         ],
         "history_index": 0
+    },
+    {
+        "id": "b5d85367-e7d6-458c-b189-edc82ca4beda",
+        "judul": "Jumlah Rumah Sakit Umum, Rumah Sakit Ibu Dan Anak, Puskesmas, Klinik Pratama, Dan Posyandu Menurut Kecamatan Di Kabupaten Kudus, 2025",
+        "data": {
+            "Kecamatan": [
+                "Kaliwungu",
+                "Kota",
+                "Jati",
+                "Undaan",
+                "Mejobo",
+                "Jekulo",
+                "Bae",
+                "Gebog",
+                "Dawe"
+            ],
+            "Jumlah Rumah Sakit Umum": [
+                3,
+                2,
+                2,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0
+            ],
+            "Jumlah Rumah Sakit Khusus": [
+                1,
+                2,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "Jumlah Puskesmas Rawat Inap": [
+                2,
+                0,
+                0,
+                1,
+                2,
+                2,
+                0,
+                1,
+                2
+            ],
+            "Jumlah Puskesmas Non Rawat Inap": [
+                0,
+                3,
+                2,
+                1,
+                0,
+                0,
+                2,
+                1,
+                0
+            ],
+            "Jumlah Klinik Pratama": [
+                5,
+                30,
+                6,
+                4,
+                5,
+                5,
+                9,
+                2,
+                1
+            ],
+            "Jumlah Posyandu": [
+                90,
+                115,
+                92,
+                75,
+                66,
+                160,
+                53,
+                69,
+                115
+            ]
+        },
+        "kolom_numerik": [
+            "Jumlah Rumah Sakit Umum",
+            "Jumlah Rumah Sakit Khusus",
+            "Jumlah Puskesmas Rawat Inap",
+            "Jumlah Puskesmas Non Rawat Inap",
+            "Jumlah Klinik Pratama",
+            "Jumlah Posyandu"
+        ],
+        "warna": "#FF4B4B",
+        "active_sort_col": "Jumlah",
+        "panah_bawah": false,
+        "hapus_jumlah": false,
+        "history": [
+            {
+                "data": {
+                    "Kecamatan": [
+                        "Kaliwungu",
+                        "Kota",
+                        "Jati",
+                        "Undaan",
+                        "Mejobo",
+                        "Jekulo",
+                        "Bae",
+                        "Gebog",
+                        "Dawe"
+                    ],
+                    "Jumlah Rumah Sakit Umum": [
+                        3,
+                        2,
+                        2,
+                        0,
+                        0,
+                        1,
+                        0,
+                        0,
+                        0
+                    ],
+                    "Jumlah Rumah Sakit Khusus": [
+                        1,
+                        2,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "Jumlah Puskesmas Rawat Inap": [
+                        2,
+                        0,
+                        0,
+                        1,
+                        2,
+                        2,
+                        0,
+                        1,
+                        2
+                    ],
+                    "Jumlah Puskesmas Non Rawat Inap": [
+                        0,
+                        3,
+                        2,
+                        1,
+                        0,
+                        0,
+                        2,
+                        1,
+                        0
+                    ],
+                    "Jumlah Klinik Pratama": [
+                        5,
+                        30,
+                        6,
+                        4,
+                        5,
+                        5,
+                        9,
+                        2,
+                        1
+                    ],
+                    "Jumlah Posyandu": [
+                        90,
+                        115,
+                        92,
+                        75,
+                        66,
+                        160,
+                        53,
+                        69,
+                        115
+                    ]
+                },
+                "kolom_numerik": [
+                    "Jumlah Rumah Sakit Umum",
+                    "Jumlah Rumah Sakit Khusus",
+                    "Jumlah Puskesmas Rawat Inap",
+                    "Jumlah Puskesmas Non Rawat Inap",
+                    "Jumlah Klinik Pratama",
+                    "Jumlah Posyandu"
+                ],
+                "hapus_jumlah": false,
+                "active_sort_col": "Jumlah Rumah Sakit Umum"
+            }
+        ],
+        "history_index": 0
     }
 ]
