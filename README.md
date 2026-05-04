@@ -5,7 +5,7 @@ Aplikasi berbasis web ini dikembangkan secara khusus untuk **Badan Perencanaan P
 Aplikasi ini menggabungkan dua metodologi utama:
 
 1. **Metode Penilaian (Scoring):** Pemeringkatan data secara tradisional berdasarkan kriteria yang ditentukan.
-2. **K-Means Clustering (Kecerdasan Buatan):** Pembagian zona prioritas secara spasial menggunakan algoritma komputasi tingkat lanjut.
+2. **K-Means Clustering (Kecerdasan Buatan):** Pembagian zona prioritas secara spasial menggunakan algoritma komputasi tingkat lanjut yang dilengkapi dengan Normalisasi Anti-Bias.
 
 ## 📖 Buku Panduan Penggunaan (Tutorial)
 
@@ -21,9 +21,11 @@ Sebelum memulai pengisian data, Bapak/Ibu dapat menentukan apakah akan bekerja d
 ### Langkah 1: Input Data Indikator (Tab 1)
 
 Halaman ini adalah pusat pengelolaan data. Bapak/Ibu dipersilakan untuk memasukkan data statistik (seperti tingkat kemiskinan, jumlah sekolah, dll) per kecamatan. Terdapat dua pilihan metode pengisian:
-* Tambah Data Manual: Klik tombol `+ Tambah Indikator (Manual)`, ketikkan judul tabel, lalu masukkan angka satu per satu secara manual.
-* Impor Otomatis (Sangat Disarankan): Klik tombol `📁 Ambil dari Excel/CSV`. Unggah file data BPS yang Bapak/Ibu miliki.
-   * ⚠️ Catatan Penting saat Impor Data: Apabila pada pratinjau tabel terdapat kolom dengan nama aneh seperti `Unnamed: 0` atau `Unnamed: 1`, hal tersebut terjadi karena file Excel Bapak/Ibu memiliki kop surat di baris paling atas. Untuk memperbaikinya, silakan naikkan angka pada menu **"📌 Baris Judul Kolom (Header)"** (misalnya menjadi baris 2 atau 3) hingga pratinjau tabel menampilkan nama kolom dengan benar (misal: "Kecamatan", "Jumlah Penduduk").
+* **Bagian A: Profil Dasar Wilayah:** Berisi data fundamental (Luas Daerah & Jumlah Penduduk). Sistem telah menyediakan data BPS secara otomatis, namun Bapak/Ibu dapat memperbaruinya kapan saja melalui menu unggah (Import) khusus profil dasar. Data ini wajib ada sebagai pengkalibrasi mesin AI.
+* **Bagian B: Indikator Intervensi Tematik:** Tempat Bapak/Ibu memasukkan data statistik sektoral (seperti tingkat kemiskinan, jumlah sekolah, dll). Terdapat dua pilihan metode pengisian:
+   * Tambah Data Manual: Klik tombol `+ Tambah Indikator (Manual)`, ketikkan judul tabel, lalu masukkan angka satu per satu secara manual.
+   * Impor Otomatis (Sangat Disarankan): Klik tombol `📁 Ambil dari Excel/CSV`. Unggah file data BPS yang Bapak/Ibu miliki.
+      * ⚠️ Catatan Penting saat Impor Data: Apabila pada pratinjau tabel terdapat kolom dengan nama aneh seperti `Unnamed: 0` atau `Unnamed: 1`, hal tersebut terjadi karena file Excel Bapak/Ibu memiliki kop surat di baris paling atas. Untuk memperbaikinya, silakan naikkan angka pada menu **"📌 Baris Judul Kolom (Header)"** (misalnya menjadi baris 2 atau 3) hingga pratinjau tabel menampilkan nama kolom dengan benar (misal: "Kecamatan", "Jumlah Penduduk").
 Setelah tabel berhasil dibuat, Bapak/Ibu dapat menggunakan menu **"📌 Pengaturan Urutan"** di dalam kotak tabel untuk menentukan kriteria data: apakah nilai yang semakin besar dianggap semakin baik, atau sebaliknya.
 
 ### Langkah 2: Melihat Peringkat & Proporsi (Tab 2)
@@ -37,9 +39,17 @@ Setelah seluruh data indikator selesai diinput di Tab 1, silakan buka Tab 2.
 ### Langkah 3: Eksekusi Kecerdasan Buatan & Pemetaan (Tab 3)
 
 Halaman ini merupakan tahap akhir analisis yang menggunakan teknologi Kecerdasan Buatan (AI).
-1. **Pengaturan Batas Peta:** Tentukan jumlah pembagian zona (2, 3, atau 4 zona). Semakin banyak zona yang dipilih, semakin detail pembagian wilayah prioritasnya.
-2. **Pengaturan Bobot (Weighting):** Bapak/Ibu dapat menggeser slider bobot untuk memberikan prioritas lebih tinggi pada indikator tertentu (misalnya: tingkat kemiskinan diberi bobot 10, sedangkan jumlah jalan diberi bobot 1).
-3. **Sensitivitas Algoritma:** Pengaturan ini berfungsi untuk menentukan tingkat "ketegasan" sistem. Angka yang semakin tinggi akan membuat suatu wilayah lebih sulit dimasukkan ke zona kritis, kecuali kondisinya benar-benar sangat parah.
+1. **Metode Normalisasi Data (Pencegah Bias):** Sebelum AI bekerja, pilih metode perhitungan agar wilayah yang besar/padat tidak selalu dianggap paling bermasalah. Anda bisa memilih:
+   * **Absolut:** Menggunakan angka mentah apa adanya.
+   * **Per Kapita:** Otomatis membagi indikator dengan Jumlah Penduduk.
+   * **Kepadatan:** Otomatis membagi indikator dengan Luas Wilayah.
+   * **Rasio Ganda:** Membagi indikator dengan populasi sekaligus luas area.
+2. **Pemilihan Indikator Cerdas:** Sistem otomatis memilihkan "Kolom Acuan" dari Tab 1 untuk dianalisis. Anda bisa menambah/menghapus indikator dengan mengklik kotak pencarian (Search Box). *Catatan: Menekan Backspace tidak akan menghapus indikator secara tidak sengaja berkat sistem proteksi internal.*
+3. **Pengaturan Lanjutan AI:** 
+   * **Klaster:** Tentukan jumlah pembagian zona prioritas (2, 3, atau 4).
+   * **Sensitivitas:** Tingkatkan nilainya jika ingin mempersulit suatu wilayah masuk ke zona merah (Kritis).
+   * **Kepadatan:** Otomatis membagi indikator dengan Luas Wilayah.
+   * **Bobot (Weighting):** Geser *slider* jika ingin sebuah indikator lebih mendominasi perhitungan AI dibandingkan indikator lainnya.
 4. **Analisis Peta:** Peta interaktif di sebelah kanan akan menampilkan wilayah Kabupaten Kudus yang telah diwarnai sesuai dengan zona prioritasnya (Merah = Kritis, Kuning/Hijau = Aman).
 5. Bapak/Ibu dapat mengunduh **"Peta Interaktif (.html)"** atau **"Laporan Anggota Klaster (.xlsx)"** untuk keperluan bahan presentasi pimpinan.
 
@@ -54,8 +64,9 @@ Aplikasi yang berada di server cloud melakukan pembersihan memori secara berkala
 ## ✨ Fitur Utama
 
 ### 🤝 Keamanan Data & Kolaborasi
-* **Ruang Kerja Privat (Project Key):** Memfasilitasi pengerjaan secara mandiri oleh banyak staf tanpa risiko saling menghapus data. Sistem menggunakan kata kunci (Project Key) untuk mengisolasi setiap sesi pengerjaan.
-* **Ekspor & Impor Cadangan Offline (.json):** Sistem perlindungan data tingkat tinggi yang memungkinkan pengguna mengunduh seluruh progres pekerjaan ke komputer masing-masing. Menjamin data 100% aman meskipun terjadi gangguan pada server pusat.
+* **Ruang Kerja Privat (Project Key):** Mengisolasi pengerjaan secara mandiri oleh banyak staf tanpa risiko saling menimpa data.
+* **Manajemen Profil Dasar Mandiri:** Data Luas Wilayah dan Penduduk tersimpan secara universal di server dan dapat di-update kapan saja melalui fitur Impor cerdas khusus profil.
+* **Ekspor/Impor Offline (.json):** Perlindungan data tingkat tinggi yang memungkinkan pengguna mengunduh seluruh state proyek ke komputer masing-masing.
 
 ### 🏠 Beranda Executive (Modul Utama)
 * **Ringkasan Eksekutif & Deteksi Zona Kritis:** Menampilkan Indikator Kinerja Utama (KPI) serta memberikan peringatan dini mengenai jumlah kecamatan yang terdeteksi masuk ke dalam zona paling kritis.
@@ -70,7 +81,8 @@ Aplikasi yang berada di server cloud melakukan pembersihan memori secara berkala
 * **Visualisasi Proporsional:** Dilengkapi dengan grafik Plotly untuk menampilkan komposisi persentase data antar wilayah kecamatan.
 
 ### 🗺️ Tab 3: AI Peta Zonasi / K-Means (Modul AI)
-* **Klastering Multi-Dimensi:** Menerapkan algoritma K-Means dari pustaka `scikit-learn` untuk mengelompokkan wilayah berdasarkan kedekatan variabel statistik secara spasial.
+* **Klastering Multi-Dimensi (Anti Size-Bias):** Menerapkan algoritma K-Means dari pustaka scikit-learn yang dilengkapi fitur Kalkulator Normalisasi (Per Kapita / Kepadatan / Rasio Ganda) di belakang layar.
+* **Smart Indicator Search:** *Dropdown* indikator yang dilengkapi fitur *Search* bawaan dan pelindung DOM *Javascript* (mencegah Backspace menghapus data tanpa sengaja).
 * **Pemetaan WebGIS Terpadu:** Terintegrasi dengan `folium` untuk menghasilkan visualisasi peta poligon (Polygon WebGIS) yang presisi.
 
 ## 📂 Struktur File (Modular)
