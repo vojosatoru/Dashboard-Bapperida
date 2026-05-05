@@ -90,7 +90,7 @@
             "Tenaga Kesehatan - Tenaga Gizi"
         ],
         "warna": "#FF4B4B",
-        "active_sort_col": "Tenaga Kesehatan - Perawat",
+        "active_sort_col": "Jumlah",
         "panah_bawah": false,
         "hapus_jumlah": false,
         "history": [

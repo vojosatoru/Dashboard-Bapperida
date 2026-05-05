@@ -2,7 +2,7 @@
 import streamlit as st
 import pandas as pd
 from utils.constants import DAFTAR_KECAMATAN
-from utils.state_manager import simpan_profil_dasar, reset_profil_dasar, muat_profil_dasar
+from utils.state_manager import simpan_profil_dasar
 
 def render_profil_dasar():
     st.subheader("🏢 Bagian A: Profil Dasar Wilayah")
@@ -30,35 +30,49 @@ def render_profil_dasar():
 
     with tab_aktif:
         with st.container(border=True):
-            st.info(f"Sumber Data Saat Ini: **{st.session_state.get('sumber_profil', 'Bawaan Sistem')}**")
-            st.dataframe(st.session_state.data_dasar, use_container_width=True, hide_index=True)
+            col_luas, col_penduduk = st.columns(2)
             
-            # Tombol reset muncul jika menggunakan file custom
-            if st.session_state.get('sumber_profil') != "Data Statis BPS Kudus 2025/2026":
-                if st.button("🔄 Kembalikan ke Data Bawaan BPS", type="secondary"):
-                    reset_profil_dasar() # Hapus file JSON
-                    df_default, sumber_default = muat_profil_dasar() # Muat ulang default
-                    st.session_state.data_dasar = df_default
-                    st.session_state.sumber_profil = sumber_default
-                    st.rerun()
+            df_dasar = st.session_state.data_dasar
+            
+            with col_luas:
+                st.markdown("**🗺️ Luas Wilayah (km²)**")
+                # Di balik layar kita tetap memanggil "km2" agar tidak error
+                df_luas = df_dasar[['Kecamatan', 'Luas Wilayah (km2)']]
+                
+                # Di antarmuka, kita pasangkan topeng nama menggunakan column_config agar tampil "km²"
+                st.dataframe(
+                    df_luas, 
+                    use_container_width=True, 
+                    hide_index=True,
+                    column_config={
+                        "Luas Wilayah (km2)": "Luas Wilayah (km²)"
+                    }
+                )
+                
+            with col_penduduk:
+                st.markdown("**👥 Jumlah Penduduk (Jiwa)**")
+                df_penduduk = df_dasar[['Kecamatan', 'Jumlah Penduduk (Jiwa)']]
+                st.dataframe(df_penduduk, use_container_width=True, hide_index=True)
 
     with tab_import:
         with st.container(border=True):
             # Pesan Sukses jika baru saja berhasil import
             if st.session_state.get('import_profil_sukses', False):
                 st.success("✅ File berhasil diimpor! Silakan cek tab '🟢 Profil Aktif' untuk melihat hasilnya.")
-                # Reset flag agar pesan tidak muncul terus menerus pada interaksi berikutnya
                 st.session_state.import_profil_sukses = False
 
             st.markdown("Karena BPS biasanya memisah data Luas dan Penduduk dalam file berbeda, silakan pilih dan perbarui datanya satu per satu.")
             
             # MEMILIH JENIS TARGET FILE DULUAN
-            jenis_pembaruan = st.radio(
+            # Tampilan di layar memakai "km²"
+            jenis_pembaruan_ui = st.radio(
                 "Pilih jenis data yang ingin diperbarui:",
-                ["Luas Wilayah (km2)", "Jumlah Penduduk (Jiwa)"],
+                ["Luas Wilayah (km²)", "Jumlah Penduduk (Jiwa)"],
                 horizontal=True
             )
             
+            # Konversi kembali ke nama internal "km2" untuk digunakan oleh mesin di balik layar
+            jenis_pembaruan = "Luas Wilayah (km2)" if "Luas" in jenis_pembaruan_ui else "Jumlah Penduduk (Jiwa)"
             target_nama = "Luas Wilayah" if "Luas" in jenis_pembaruan else "Jumlah Penduduk"
             
             col_hdr1, _ = st.columns([2, 3])
@@ -140,7 +154,7 @@ def render_profil_dasar():
                                 if is_ribu:
                                     final_val *= 1000
                                     
-                                # Timpa HANYA kolom yang dipilih
+                                # Timpa HANYA kolom yang dipilih (berdasarkan key internal)
                                 temp_df.at[i, jenis_pembaruan] = final_val
                                 
                             except StopIteration:
