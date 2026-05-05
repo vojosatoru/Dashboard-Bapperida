@@ -11,14 +11,12 @@ def render_pengaturan_ai(df_untuk_ai, df_master, fitur_tersedia):
     config_ai = muat_config_kmeans()
     
     # --- DEFAULT MULTISELECT HANYA KOLOM ACUAN ---
-    # Membaca Tab 1 untuk mendapatkan daftar kolom yang sedang dijadikan acuan
     default_acuan_features = []
     if 'koleksi_tabel' in st.session_state:
         for tabel in st.session_state.koleksi_tabel:
             col_acuan = tabel.get('active_sort_col', '')
             judul = tabel.get('judul', '')
             
-            # Menambahkan Suffix agar cocok dengan nama fitur yang telah dinormalisasi di data_prep
             norm = tabel.get('normalisasi', 'Absolut')
             if norm == "Dibagi Penduduk":
                 suffix = " [Dibagi Penduduk]"
@@ -31,54 +29,53 @@ def render_pengaturan_ai(df_untuk_ai, df_master, fitur_tersedia):
                 
             prefix = f"{col_acuan} ({judul}){suffix}"
             
-            # Mencari fitur yang cocok di daftar fitur_tersedia
             for f in fitur_tersedia:
                 if f == prefix or f.startswith(f"{col_acuan} ({judul})"):
                     default_acuan_features.append(f)
                     break
 
-    # Saring history memori agar tidak error jika ada data yang dihapus di Tab 1
     saved_features = config_ai.get('ai_selected_features', None)
     
     if saved_features is not None:
         valid_features = [f for f in saved_features if f in fitur_tersedia]
-        # Jika setelah disaring ternyata kosong (misal tabel dihapus semua), kembali ke default
         if not valid_features and default_acuan_features:
             valid_features = default_acuan_features
     else:
-        # Jika belum ada pengaturan (pertama kali buka tab 3), gunakan default acuan
         valid_features = default_acuan_features
         
-    # Fallback terakhir jika somehow tabel tidak memiliki acuan tapi fitur tersedia
     if not valid_features and fitur_tersedia:
         valid_features = fitur_tersedia
 
-    # Inisialisasi memori internal Streamlit (Hanya berjalan sekali saat awal)
     if 'ms_fitur_ai' not in st.session_state:
         st.session_state['ms_fitur_ai'] = valid_features
     else:
-        # Sanitasi memastikan pilihan lama yang sudah dihapus tidak nyangkut
         st.session_state['ms_fitur_ai'] = [f for f in st.session_state['ms_fitur_ai'] if f in fitur_tersedia]
 
-    # Fungsi seketika (Callback) saat user mengklik Multiselect
     def update_fitur_config():
         config_ai['ai_selected_features'] = st.session_state['ms_fitur_ai']
         simpan_config_kmeans(config_ai)
-        # Menghapus peta saat indikator diganti agar memaksakan update
         if 'hasil_kmeans' in st.session_state:
             del st.session_state['hasil_kmeans']
 
-    # --- PENGGUNAAN FITUR SEARCH NATIVE DARI STREAMLIT ---
-    # Multiselect Streamlit otomatis memiliki fitur pencarian saat diklik dan diketik.
+    # --- FITUR BARU: TOMBOL KOSONGKAN PILIHAN ---
+    col_label, col_clear = st.columns([2, 1])
+    col_label.markdown("**Pilih Indikator yang Dianalisis:**")
+    if col_clear.button("🧹 Kosongkan", use_container_width=True, help="Hapus semua indikator yang terpilih dari kotak di bawah"):
+        st.session_state['ms_fitur_ai'] = []
+        update_fitur_config()
+        st.rerun()
+
+    # --- KOTAK PEMILIHAN (MULTISELECT) ---
     fitur_terpilih = st.multiselect(
         "Pilih Indikator yang Dianalisis:", 
         fitur_tersedia, 
         key='ms_fitur_ai',
         on_change=update_fitur_config,
-        placeholder="Klik dan ketik untuk mencari indikator..."
+        placeholder="Klik dan ketik untuk mencari indikator...",
+        label_visibility="collapsed" # Label disembunyikan karena sudah diganti dengan st.markdown di atas
     )
     
-    # --- MENCEGAH BACKSPACE MENGHAPUS INDIKATOR (PERBAIKAN OBSERVER) ---
+    # --- MENCEGAH BACKSPACE MENGHAPUS INDIKATOR ---
     components.html(
         """
         <script>
@@ -111,7 +108,6 @@ def render_pengaturan_ai(df_untuk_ai, df_master, fitur_tersedia):
     saved_cluster = config_ai.get('ai_n_clusters', 3)
     n_clusters = st.slider("Jumlah Zona Prioritas (Klaster)", min_value=2, max_value=4, value=saved_cluster)
     
-    # Tambahkan st.rerun() agar slider tidak mantul (bouncing)
     if n_clusters != saved_cluster:
         config_ai['ai_n_clusters'] = n_clusters
         simpan_config_kmeans(config_ai)

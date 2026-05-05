@@ -6,7 +6,5 @@
         "Jumlah (Jumlah Rumah Sakit Umum, Rumah Sakit Ibu Dan Anak, Puskesmas, Klinik Pratama, Dan Posyandu Menurut Kecamatan Di Kabupaten Kudus, 2025) [Dibagi Luas]": 1.0,
         "Jumlah (Jumlah SMA Menurut Kecamatan Di Kabupaten Kudus, 2025) [Dibagi Luas]": 1.0,
         "Jumlah (Jumlah Guru dan Murid SMA Menurut Kecamatan Di Kabupaten Kudus, 2025)": 1.0
-    },
-    "ai_normalisasi": "Absolut",
-    "ai_n_clusters": 3
+    }
 }
