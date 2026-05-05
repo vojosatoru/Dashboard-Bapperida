@@ -6,11 +6,9 @@ import copy
 import pandas as pd
 from utils.constants import DAFTAR_KECAMATAN
 
-# Pindahkan file database ke dalam folder 'data' agar direktori root tetap bersih
 DATA_DIR = "data"
 
 def get_data_file():
-    # Mengambil kunci proyek dari memori, jika kosong gunakan 'publik'
     key = st.session_state.get('project_key', 'publik')
     return os.path.join(DATA_DIR, f"data_{key}.json")
 
@@ -19,7 +17,6 @@ def get_config_file():
     return os.path.join(DATA_DIR, f"config_{key}.json")
 
 def get_profil_file():
-    # File profil dasar statis, tidak terpengaruh oleh project_key
     return os.path.join(DATA_DIR, "profil_dasar.json")
 
 def pastikan_folder_ada():
@@ -63,10 +60,16 @@ def muat_profil_dasar():
         try:
             with open(file_path, "r") as f:
                 data = json.load(f)
-                # Kembalikan DataFrame dan sumber
-                return pd.DataFrame(data['data']), data.get('sumber', 'Custom File')
+                df = pd.DataFrame(data['data'])
+                
+                # --- BACKWARD COMPATIBILITY ---
+                # Jika masih ada data bernama (Jiwa) lama, otomatis ubah namanya menjadi 2026
+                if "Jumlah Penduduk (Jiwa)" in df.columns:
+                    df.rename(columns={"Jumlah Penduduk (Jiwa)": "Jumlah Penduduk 2026"}, inplace=True)
+                    
+                return df, data.get('sumber', 'Custom File')
         except:
-            pass # Jika gagal, kembalikan default di bawah
+            pass 
             
     # Data Aproksimasi Kabupaten Kudus 2025/2026 (DEFAULT)
     data_luas = [32.71, 10.47, 26.30, 71.77, 36.77, 82.92, 23.33, 55.01, 85.84]
@@ -75,7 +78,7 @@ def muat_profil_dasar():
     df_default = pd.DataFrame({
         "Kecamatan": DAFTAR_KECAMATAN,
         "Luas Wilayah (km2)": data_luas,
-        "Jumlah Penduduk (Jiwa)": [x * 1000 for x in data_penduduk]
+        "Jumlah Penduduk 2026": [int(x * 1000) for x in data_penduduk] # Diperbarui menjadi 2026
     })
     return df_default, "Data Statis BPS Kudus 2025/2026"
 
