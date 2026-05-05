@@ -13,6 +13,23 @@ def konversi_df_ke_excel(df):
     processed_data = output.getvalue()
     return processed_data
 
+def format_angka_indo(val):
+    """Fungsi pembantu untuk memformat angka: hapus nol berlebih dan gunakan format Indonesia."""
+    try:
+        if pd.isna(val):
+            return "0"
+        val = float(val)
+        if val.is_integer():
+            # Jika bilangan bulat (misal: 7.000000), tampilkan tanpa desimal dan pakai titik untuk ribuan
+            return f"{int(val):,}".replace(',', '.')
+        else:
+            # Jika desimal, batasi maksimal 6 angka di belakang koma, lalu hapus nol berlebih di akhirnya
+            s = f"{val:,.6f}".rstrip('0').rstrip('.')
+            # Konversi tanda dari format US (1,234.56) ke format Indo (1.234,56)
+            return s.replace(',', 'X').replace('.', ',').replace('X', '.')
+    except:
+        return val
+
 def render_peta_zonasi(fitur_terpilih):
     """Merender antarmuka peta WebGIS di kolom kanan."""
     if 'hasil_kmeans' in st.session_state:
@@ -90,8 +107,11 @@ def render_tabel_zonasi(fitur_terpilih):
                 width="medium"
             )
         
+        # --- PERBAIKAN FORMAT ANGKA: Menerapkan fungsi format_angka_indo ---
+        formatter_dict = {fitur: format_angka_indo for fitur in fitur_terpilih}
+        
         st.dataframe(
-            df_tampil.style.format(thousands="."), 
+            df_tampil.style.format(formatter=formatter_dict), 
             use_container_width=True, 
             hide_index=True,
             column_config=config_kolom_tab3
