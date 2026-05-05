@@ -27,113 +27,120 @@ def render_tables():
             
             # Mengambil nama project key yang sedang aktif untuk nama file
             current_key = st.session_state.get('project_key', 'publik')
-            nama_file_unduh = f"Backup_{current_key.capitalize()}.json"
+            nama_file = f"MURIA_Backup_{current_key}.json"
             
             st.download_button(
                 label="📥 Unduh Proyek (.json)",
-                data=json_string,
-                file_name=nama_file_unduh,
+                file_name=nama_file,
                 mime="application/json",
-                use_container_width=True,
-                help=f"Unduh seluruh tabel dan pengaturan ke dalam file bernama {nama_file_unduh}."
+                data=json_string,
+                use_container_width=True
             )
             
         with col_import:
-            st.markdown("**2. Lanjutkan Proyek (Impor)**")
-            uploaded_project = st.file_uploader("Unggah File Proyek (.json)", type=['json'], label_visibility="collapsed")
-            if uploaded_project is not None:
-                if st.button("🔄 Pulihkan Data", use_container_width=True, type="primary"):
+            st.markdown("**2. Muat Proyek (Impor)**")
+            uploaded_json = st.file_uploader("Pilih file backup .json:", type=['json'], key="upload_json_project")
+            if uploaded_json is not None:
+                if st.button("🚀 Pulihkan Data Sekarang", use_container_width=True, type="primary"):
                     try:
-                        isi_file = json.load(uploaded_project)
+                        isi_file = json.load(uploaded_json)
+                        # Pulihkan data
+                        st.session_state.koleksi_tabel = isi_file.get("data_tabel", [])
+                        simpan_data(st.session_state.koleksi_tabel)
+                        # Pulihkan AI config
+                        config_baru = isi_file.get("config_ai", {})
+                        simpan_config_kmeans(config_baru)
                         
-                        # Mengembalikan data ke memori dan menyimpannya ke server
-                        if "data_tabel" in isi_file:
-                            st.session_state.koleksi_tabel = isi_file["data_tabel"]
-                            simpan_data(isi_file["data_tabel"])
-                            
-                        if "config_ai" in isi_file:
-                            simpan_config_kmeans(isi_file["config_ai"])
-                            
-                        # Menghapus hasil AI lama agar sistem menghitung ulang dari data baru
-                        if 'hasil_kmeans' in st.session_state:
-                            del st.session_state['hasil_kmeans']
-                            
-                        st.success("✅ Proyek berhasil dipulihkan!")
+                        st.success("✅ Proyek berhasil dipulihkan! Halaman akan dimuat ulang...")
+                        import time
+                        time.sleep(1)
                         st.rerun()
                     except Exception as e:
-                        st.error("❌ File tidak valid atau rusak.")
+                        st.error(f"❌ Gagal memuat file: Pastikan ini adalah file backup MURIA yang valid. Error: {str(e)}")
+
+    # Jangan merender apa-apa jika belum ada data tabel
+    if "koleksi_tabel" not in st.session_state or len(st.session_state.koleksi_tabel) == 0:
+        return
+
+    st.markdown("### 📋 Daftar Indikator Tersimpan")
+    st.info("💡 **Tips:** Anda dapat mengganti nama tabel, menghapus kolom, dan mengatur arah pemeringkatan melalui 3 menu pengaturan di bawah judul tabel.")
     
-    st.markdown("---")
-    
-    # --- TAMPILAN TABEL YANG SUDAH DISIMPAN ---
-    if not st.session_state.koleksi_tabel:
-        st.info("Belum ada data yang ditambahkan. Klik '+ Tambah Data Baru' atau 'Auto Import' untuk memulai.")
-    else:
-        st.caption("💡 Tip: Gunakan menu '⚙️ Pengaturan Urutan' dan 'Hapus Kolom' di bawah judul tabel untuk mengelola data dengan rapi.")
-        for i, tabel in enumerate(st.session_state.koleksi_tabel):
-            # Inisialisasi riwayat (history) pada saat merender jika belum punya
-            init_history(st.session_state.koleksi_tabel[i])
-            tabel = st.session_state.koleksi_tabel[i]
+    for i, tabel in enumerate(st.session_state.koleksi_tabel):
+        # Inisialisasi riwayat (history) jika belum ada
+        init_history(st.session_state.koleksi_tabel[i])
+        tabel = st.session_state.koleksi_tabel[i]
+        
+        tabel_id = tabel['id']
+        kolom_numerik = tabel['kolom_numerik']
+        hapus_jumlah = tabel.get('hapus_jumlah', False) 
+        
+        is_form_open = st.session_state.form_step == 3
+        
+        # Membungkus setiap tabel dalam kotak (Card)
+        with st.container(border=True):
             
-            tabel_id = tabel['id']
-            kolom_numerik = tabel['kolom_numerik']
-            hapus_jumlah = tabel.get('hapus_jumlah', False) 
-            
-            # Status apakah form tambah kolom sedang terbuka
-            is_form_open = st.session_state.form_step == 3
-            
-            # --- DERETAN TOMBOL KONTROL TABEL ---
+            # --- BARIS ATAS: KONTROL UTAMA TABEL ---
+            # Mengembalikan layout ke format tombol asli (tanpa teks input kecil)
             top_col1, top_col2, top_col_undo, top_col_redo, top_col_add, top_col3 = st.columns([4.6, 0.4, 1, 1, 1, 1])
             
-            top_col1.markdown(f"### {tabel['judul']}")
-            
-            warna_baru = top_col2.color_picker("Warna", value=tabel['warna'], key=f"btn_warna_{tabel_id}", label_visibility="collapsed", disabled=is_form_open)
-            if warna_baru != tabel['warna']:
-                st.session_state.koleksi_tabel[i]['warna'] = warna_baru
-                simpan_data(st.session_state.koleksi_tabel) 
-                st.rerun()
+            with top_col1:
+                # Mengembalikan tampilan judul menjadi header besar markdown
+                st.markdown(f"### {tabel['judul']}")
 
-            can_undo = (tabel['history_index'] > 0) and not is_form_open
-            can_redo = (tabel['history_index'] < len(tabel['history']) - 1) and not is_form_open
-            
-            if top_col_undo.button("↩️ Undo", key=f"undo_{tabel_id}", disabled=not can_undo, help="Mundurkan riwayat kolom", use_container_width=True):
-                tabel['history_index'] -= 1
-                state = tabel['history'][tabel['history_index']]
-                tabel['data'] = copy.deepcopy(state['data'])
-                tabel['kolom_numerik'] = copy.deepcopy(state['kolom_numerik'])
-                tabel['hapus_jumlah'] = state['hapus_jumlah']
-                tabel['active_sort_col'] = state['active_sort_col']
-                simpan_data(st.session_state.koleksi_tabel)
-                st.session_state.pop('hasil_kmeans', None) # Hapus cache AI agar sinkron
-                st.rerun()
+            with top_col2:
+                warna_baru = st.color_picker(
+                    "Warna", 
+                    value=tabel.get('warna', '#FF4B4B'), 
+                    key=f"btn_warna_{tabel_id}", 
+                    label_visibility="collapsed", 
+                    disabled=is_form_open
+                )
+                if warna_baru != tabel.get('warna', '#FF4B4B'):
+                    st.session_state.koleksi_tabel[i]['warna'] = warna_baru
+                    simpan_data(st.session_state.koleksi_tabel) 
+                    st.rerun()
 
-            if top_col_redo.button("↪️ Redo", key=f"redo_{tabel_id}", disabled=not can_redo, help="Majukan riwayat kolom", use_container_width=True):
-                tabel['history_index'] += 1
-                state = tabel['history'][tabel['history_index']]
-                tabel['data'] = copy.deepcopy(state['data'])
-                tabel['kolom_numerik'] = copy.deepcopy(state['kolom_numerik'])
-                tabel['hapus_jumlah'] = state['hapus_jumlah']
-                tabel['active_sort_col'] = state['active_sort_col']
-                simpan_data(st.session_state.koleksi_tabel)
-                st.session_state.pop('hasil_kmeans', None) # Hapus cache AI agar sinkron
-                st.rerun()
-                
-            # Tombol Tambah Kolom
-            if top_col_add.button("➕ Kolom", key=f"add_col_{tabel_id}", help="Tambah indikator baru ke tabel ini", use_container_width=True, disabled=is_form_open):
-                st.session_state.form_step = 3
-                st.session_state.edit_table_id = tabel_id
-                st.session_state.angka_acak_kolom_baru = {kec: random.randint(10, 999) for kec in DAFTAR_KECAMATAN}
-                st.session_state.angka_acak_kolom_baru_2 = {kec: random.randint(10, 999) for kec in DAFTAR_KECAMATAN}
-                st.rerun()
-                
-            # Tombol Hapus Tabel
-            if top_col3.button("❌ Hapus", key=f"btn_hapus_tabel_{tabel_id}", help="Hapus Tabel Ini Total", disabled=is_form_open, use_container_width=True):
-                st.session_state.koleksi_tabel.pop(i)
-                simpan_data(st.session_state.koleksi_tabel) 
-                st.session_state.pop('hasil_kmeans', None) # Hapus cache AI agar sinkron
-                st.rerun()
+            with top_col_undo:
+                can_undo = (tabel['history_index'] > 0) and not is_form_open
+                if st.button("↩️ Undo", key=f"undo_{tabel_id}", disabled=not can_undo, help="Mundurkan riwayat kolom", use_container_width=True):
+                    tabel['history_index'] -= 1
+                    state = tabel['history'][tabel['history_index']]
+                    tabel['data'] = copy.deepcopy(state['data'])
+                    tabel['kolom_numerik'] = copy.deepcopy(state['kolom_numerik'])
+                    tabel['hapus_jumlah'] = state.get('hapus_jumlah', False)
+                    tabel['active_sort_col'] = state['active_sort_col']
+                    simpan_data(st.session_state.koleksi_tabel)
+                    st.rerun()
 
-            # TAMPILKAN FORM TAMBAH KOLOM
+            with top_col_redo:
+                can_redo = (tabel['history_index'] < len(tabel['history']) - 1) and not is_form_open
+                if st.button("↪️ Redo", key=f"redo_{tabel_id}", disabled=not can_redo, help="Majukan riwayat kolom", use_container_width=True):
+                    tabel['history_index'] += 1
+                    state = tabel['history'][tabel['history_index']]
+                    tabel['data'] = copy.deepcopy(state['data'])
+                    tabel['kolom_numerik'] = copy.deepcopy(state['kolom_numerik'])
+                    tabel['hapus_jumlah'] = state.get('hapus_jumlah', False)
+                    tabel['active_sort_col'] = state['active_sort_col']
+                    simpan_data(st.session_state.koleksi_tabel)
+                    st.rerun()
+                    
+            with top_col_add:
+                if st.button("➕ Kolom", key=f"add_col_{tabel_id}", help="Tambah indikator baru ke tabel ini", use_container_width=True, disabled=is_form_open):
+                    st.session_state.form_step = 3
+                    st.session_state.edit_table_id = tabel_id
+                    st.session_state.angka_acak_kolom_baru = {kec: random.randint(10, 999) for kec in DAFTAR_KECAMATAN}
+                    st.session_state.angka_acak_kolom_baru_2 = {kec: random.randint(10, 999) for kec in DAFTAR_KECAMATAN}
+                    st.rerun()
+                    
+            with top_col3:
+                if st.button("❌ Hapus", key=f"btn_hapus_tabel_{tabel_id}", help="Hapus Tabel Ini Total", disabled=is_form_open, use_container_width=True, type="primary"):
+                    st.session_state.koleksi_tabel.pop(i)
+                    simpan_data(st.session_state.koleksi_tabel) 
+                    st.rerun()
+
+            st.markdown("<hr style='margin: 0px 0px 15px 0px'>", unsafe_allow_html=True)
+
+            # --- FORM TAMBAH KOLOM (STEP 3) ---
             if st.session_state.form_step == 3 and st.session_state.get('edit_table_id') == tabel_id:
                 render_step_3(tabel_id, tabel)
 
@@ -151,14 +158,27 @@ def render_tables():
                 st.info("Semua kolom telah dihapus. Menghapus tabel secara otomatis...")
                 st.session_state.koleksi_tabel.pop(i)
                 simpan_data(st.session_state.koleksi_tabel)
-                st.session_state.pop('hasil_kmeans', None) # Hapus cache AI agar sinkron
                 st.rerun()
                 continue 
 
-            # --- KONTROL KOLOM ---
-            ctrl1, ctrl2 = st.columns(2)
+            # --- BARIS TENGAH: KONTROL URUTAN, HAPUS KOLOM, DAN UBAH NAMA ---
+            # Kita pecah menjadi 3 kolom Expander agar sangat rapi dan seragam
+            ctrl1, ctrl2, ctrl3 = st.columns(3)
             
             with ctrl1:
+                # Memindahkan fitur Rename Tabel ke menu expander paling kiri (ctrl1)
+                with st.expander("✏️ Ubah Nama Tabel", expanded=False):
+                    st.markdown("**Ganti Nama:**")
+                    col_rn_input, col_rn_btn = st.columns([2, 1])
+                    judul_baru = col_rn_input.text_input("Nama Baru", value=tabel['judul'], key=f"rename_exp_{tabel_id}", label_visibility="collapsed")
+                    
+                    if col_rn_btn.button("Simpan", key=f"btn_save_name_{tabel_id}", use_container_width=True, type="primary"):
+                        if judul_baru.strip() and judul_baru.strip() != tabel['judul']:
+                            st.session_state.koleksi_tabel[i]['judul'] = judul_baru.strip()
+                            simpan_data(st.session_state.koleksi_tabel)
+                            st.rerun()
+                            
+            with ctrl2:
                 with st.expander("📌 Pengaturan Urutan", expanded=False):
                     st.markdown("**Urutkan Peringkat Berdasarkan:**")
                     col_sort, col_dir = st.columns([2, 1])
@@ -166,17 +186,16 @@ def render_tables():
                     sort_idx = kolom_tampil.index(tabel['active_sort_col']) if tabel['active_sort_col'] in kolom_tampil else 0
                     sort_choice = col_sort.selectbox("Pilih Kolom:", kolom_tampil, index=sort_idx, key=f"sort_sel_{tabel_id}", label_visibility="collapsed")
                     
-                    dir_choice = col_dir.selectbox("Arah:", ["⬇️ Terbesar", "⬆️ Terkecil"], index=0 if tabel['panah_bawah'] else 1, key=f"dir_sel_{tabel_id}", label_visibility="collapsed")
+                    dir_choice = col_dir.selectbox("Arah:", ["⬇️ Terbesar", "⬆️ Terkecil"], index=0 if tabel.get('panah_bawah', False) else 1, key=f"dir_sel_{tabel_id}", label_visibility="collapsed")
                     is_panah_bawah = (dir_choice == "⬇️ Terbesar")
                     
-                    if sort_choice != tabel['active_sort_col'] or is_panah_bawah != tabel['panah_bawah']:
+                    if sort_choice != tabel['active_sort_col'] or is_panah_bawah != tabel.get('panah_bawah', False):
                         st.session_state.koleksi_tabel[i]['active_sort_col'] = sort_choice
                         st.session_state.koleksi_tabel[i]['panah_bawah'] = is_panah_bawah
                         simpan_data(st.session_state.koleksi_tabel)
-                        st.session_state.pop('hasil_kmeans', None) # Hapus cache AI agar sinkron
                         st.rerun()
                         
-            with ctrl2:
+            with ctrl3:
                 with st.expander("🗑️ Hapus Kolom", expanded=False):
                     st.markdown("**Hapus Indikator/Kolom:**")
                     col_del_sel, col_del_btn = st.columns([2, 1])
@@ -185,7 +204,6 @@ def render_tables():
                     if col_del_btn.button("Hapus", key=f"btn_del_{tabel_id}", use_container_width=True):
                         if del_choice != "-- Pilih Kolom --":
                             nama_col = del_choice
-                            # Pangkas riwayat ke depannya
                             st.session_state.koleksi_tabel[i]['history'] = st.session_state.koleksi_tabel[i]['history'][:st.session_state.koleksi_tabel[i]['history_index'] + 1]
                             
                             if nama_col == "Jumlah":
@@ -202,7 +220,6 @@ def render_tables():
                                     elif not st.session_state.koleksi_tabel[i].get('hapus_jumlah', False):
                                         st.session_state.koleksi_tabel[i]['active_sort_col'] = "Jumlah"
                             
-                            # Simpan langkah penghapusan
                             st.session_state.koleksi_tabel[i]['history'].append({
                                 'data': copy.deepcopy(st.session_state.koleksi_tabel[i]['data']),
                                 'kolom_numerik': copy.deepcopy(st.session_state.koleksi_tabel[i]['kolom_numerik']),
@@ -212,9 +229,9 @@ def render_tables():
                             st.session_state.koleksi_tabel[i]['history_index'] += 1
                             
                             simpan_data(st.session_state.koleksi_tabel)
-                            st.session_state.pop('hasil_kmeans', None) # Hapus cache AI agar sinkron
                             st.rerun()
 
+            # --- BARIS BAWAH: DATA EDITOR ---
             df = pd.DataFrame(tabel['data'])
             
             if list(df['Kecamatan']) != DAFTAR_KECAMATAN:
@@ -237,8 +254,8 @@ def render_tables():
             active_col = tabel['active_sort_col']
             
             render_cols = ["Kecamatan"] + kolom_tampil
-            df_view = df[render_cols].sort_values(by=active_col, ascending=not tabel['panah_bawah']).reset_index(drop=True)
-            df_berwarna = beri_warna_tabel(df_view, tabel['warna'], tabel['panah_bawah'], target_col=active_col)
+            df_view = df[render_cols].sort_values(by=active_col, ascending=not tabel.get('panah_bawah', False)).reset_index(drop=True)
+            df_berwarna = beri_warna_tabel(df_view, tabel.get('warna', '#FF4B4B'), tabel.get('panah_bawah', False), target_col=active_col)
             
             edited_df = st.data_editor(df_berwarna, use_container_width=True, hide_index=True, disabled=disabled_cols, key=f"editor_{tabel_id}")
             
@@ -253,7 +270,6 @@ def render_tables():
                     st.session_state.koleksi_tabel[i]['history'][idx_hist]['data'] = copy.deepcopy(data_baru)
                     
                 simpan_data(st.session_state.koleksi_tabel) 
-                st.session_state.pop('hasil_kmeans', None) # Hapus cache AI agar sinkron
                 st.rerun()
 
             st.write("")

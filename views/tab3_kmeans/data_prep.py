@@ -32,15 +32,15 @@ def siapkan_data_koleksi(koleksi_tabel, jenis_normalisasi="Absolut", data_dasar=
             nilai_asli = df_tabel[col].astype(float)
             
             # --- PROSES MATEMATIS NORMALISASI (ANTI SIZE BIAS) ---
-            if jenis_normalisasi == "Per Kapita (Bagi Penduduk)":
+            if jenis_normalisasi == "Bagi Penduduk":
                 pembagi = df_tabel['Kecamatan'].str.lower().map(map_penduduk).fillna(1).replace(0, 1)
                 nilai_final = nilai_asli / pembagi
                 nama_unik += " [Per Kapita]"
-            elif jenis_normalisasi == "Kepadatan (Bagi Luas Area)":
+            elif jenis_normalisasi == "Bagi Luas Area":
                 pembagi = df_tabel['Kecamatan'].str.lower().map(map_luas).fillna(1).replace(0, 1)
                 nilai_final = nilai_asli / pembagi
                 nama_unik += " [Kepadatan]"
-            elif jenis_normalisasi == "Rasio Ganda (Bagi Penduduk & Luas Area)":
+            elif jenis_normalisasi == "Bagi Penduduk & Luas Area":
                 # MENGHITUNG MENGGUNAKAN KEDUA DATA SEKALIGUS
                 pembagi_pend = df_tabel['Kecamatan'].str.lower().map(map_penduduk).fillna(1).replace(0, 1)
                 pembagi_luas = df_tabel['Kecamatan'].str.lower().map(map_luas).fillna(1).replace(0, 1)

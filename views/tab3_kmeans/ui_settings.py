@@ -10,13 +10,13 @@ def render_pengaturan_ai(df_untuk_ai, df_master, fitur_tersedia):
     
     config_ai = muat_config_kmeans()
     
-    # --- FITUR BARU: DROPDOWN METODE NORMALISASI ---
+    # --- DROPDOWN METODE NORMALISASI ---
     saved_norm = config_ai.get('ai_normalisasi', 'Absolut')
     pilihan_norm = [
         "Absolut", 
-        "Per Kapita (Bagi Penduduk)", 
-        "Kepadatan (Bagi Luas Area)",
-        "Rasio Ganda (Bagi Penduduk & Luas Area)"
+        "Bagi Penduduk", 
+        "Bagi Luas Area",
+        "Bagi Penduduk & Luas Area"
     ]
     
     jenis_norm = st.selectbox(

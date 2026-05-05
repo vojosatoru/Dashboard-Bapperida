@@ -408,7 +408,7 @@
             "Jumlah Desa/Kelurahan yang Mengalami Bencana Alam - Tanah Longsor"
         ],
         "warna": "#FF4B4B",
-        "active_sort_col": "Jumlah Desa/Kelurahan yang Mengalami Bencana Alam - Banjir",
+        "active_sort_col": "Jumlah",
         "panah_bawah": true,
         "hapus_jumlah": false,
         "history": [
@@ -655,6 +655,326 @@
                 ],
                 "hapus_jumlah": false,
                 "active_sort_col": "Jumlah Rumah Sakit Umum"
+            }
+        ],
+        "history_index": 0
+    },
+    {
+        "id": "90b3218b-75d3-4642-a539-2696648110c6",
+        "judul": "Jumlah SMA Menurut Kecamatan Di Kabupaten Kudus, 2025",
+        "data": {
+            "Kecamatan": [
+                "Kaliwungu",
+                "Kota",
+                "Jati",
+                "Undaan",
+                "Mejobo",
+                "Jekulo",
+                "Bae",
+                "Gebog",
+                "Dawe"
+            ],
+            "Jumlah Sekolah SMA (Negeri+Swasta)": [
+                1.0,
+                7.0,
+                2.0,
+                1.0,
+                2.0,
+                1.0,
+                3.0,
+                1.0,
+                1.0
+            ]
+        },
+        "kolom_numerik": [
+            "Jumlah Sekolah SMA (Negeri+Swasta)"
+        ],
+        "warna": "#FF4B4B",
+        "hapus_jumlah": false,
+        "panah_bawah": false,
+        "active_sort_col": "Jumlah Sekolah SMA (Negeri+Swasta)",
+        "history": [
+            {
+                "data": {
+                    "Kecamatan": [
+                        "Kaliwungu",
+                        "Kota",
+                        "Jati",
+                        "Undaan",
+                        "Mejobo",
+                        "Jekulo",
+                        "Bae",
+                        "Gebog",
+                        "Dawe"
+                    ],
+                    "Jumlah Sekolah SMA (Negeri+Swasta)": [
+                        1.0,
+                        7.0,
+                        2.0,
+                        1.0,
+                        2.0,
+                        1.0,
+                        3.0,
+                        1.0,
+                        1.0
+                    ]
+                },
+                "kolom_numerik": [
+                    "Jumlah Sekolah SMA (Negeri+Swasta)"
+                ],
+                "hapus_jumlah": false,
+                "active_sort_col": "Jumlah Sekolah SMA (Negeri+Swasta)"
+            }
+        ],
+        "history_index": 0
+    },
+    {
+        "id": "0b5418c0-12c4-430f-b1c9-d00d8ea2bbff",
+        "judul": "Jumlah Guru dan Murid SMA Menurut Kecamatan Di Kabupaten Kudus",
+        "data": {
+            "Kecamatan": [
+                "Kaliwungu",
+                "Kota",
+                "Jati",
+                "Undaan",
+                "Mejobo",
+                "Jekulo",
+                "Bae",
+                "Gebog",
+                "Dawe"
+            ],
+            "Jumlah Guru SMA (Negeri+Swasta)": [
+                6.0,
+                200.0,
+                75.0,
+                0.0,
+                73.0,
+                63.0,
+                133.0,
+                65.0,
+                9.0
+            ],
+            "Jumlah Murid SMA (Negeri+Swasta)": [
+                131.0,
+                3265.0,
+                1362.0,
+                0.0,
+                1074.0,
+                1055.0,
+                2362.0,
+                1275.0,
+                210.0
+            ]
+        },
+        "kolom_numerik": [
+            "Jumlah Guru SMA (Negeri+Swasta)",
+            "Jumlah Murid SMA (Negeri+Swasta)"
+        ],
+        "warna": "#FF4B4B",
+        "hapus_jumlah": false,
+        "panah_bawah": false,
+        "active_sort_col": "Jumlah Guru SMA (Negeri+Swasta)",
+        "history": [
+            {
+                "data": {
+                    "Kecamatan": [
+                        "Kaliwungu",
+                        "Kota",
+                        "Jati",
+                        "Undaan",
+                        "Mejobo",
+                        "Jekulo",
+                        "Bae",
+                        "Gebog",
+                        "Dawe"
+                    ],
+                    "Jumlah Guru SMA (Negeri+Swasta)": [
+                        6.0,
+                        200.0,
+                        75.0,
+                        0.0,
+                        73.0,
+                        63.0,
+                        133.0,
+                        65.0,
+                        9.0
+                    ],
+                    "Jumlah Murid SMA (Negeri+Swasta)": [
+                        131.0,
+                        3265.0,
+                        1362.0,
+                        0.0,
+                        1074.0,
+                        1055.0,
+                        2362.0,
+                        1275.0,
+                        210.0
+                    ]
+                },
+                "kolom_numerik": [
+                    "Jumlah Guru SMA (Negeri+Swasta)",
+                    "Jumlah Murid SMA (Negeri+Swasta)"
+                ],
+                "hapus_jumlah": false,
+                "active_sort_col": "Jumlah Guru SMA (Negeri+Swasta)"
+            }
+        ],
+        "history_index": 0
+    },
+    {
+        "id": "dbca7827-91dd-4951-b9d0-e01ce3fec17c",
+        "judul": "Jumlah Sekolah Menurut Kecamatan Di Kabupaten Kudus",
+        "data": {
+            "Kecamatan": [
+                "Kaliwungu",
+                "Kota",
+                "Jati",
+                "Undaan",
+                "Mejobo",
+                "Jekulo",
+                "Bae",
+                "Gebog",
+                "Dawe"
+            ],
+            "Jumlah": [
+                1,
+                7,
+                2,
+                0,
+                2,
+                1,
+                3,
+                1,
+                1
+            ]
+        },
+        "kolom_numerik": [],
+        "warna": "#FF4B4B",
+        "hapus_jumlah": false,
+        "panah_bawah": false,
+        "active_sort_col": "Jumlah",
+        "history": [
+            {
+                "data": {
+                    "Kecamatan": [
+                        "Kaliwungu",
+                        "Kota",
+                        "Jati",
+                        "Undaan",
+                        "Mejobo",
+                        "Jekulo",
+                        "Bae",
+                        "Gebog",
+                        "Dawe"
+                    ],
+                    "Jumlah": [
+                        1,
+                        7,
+                        2,
+                        0,
+                        2,
+                        1,
+                        3,
+                        1,
+                        1
+                    ]
+                },
+                "kolom_numerik": [],
+                "hapus_jumlah": false,
+                "active_sort_col": "Jumlah"
+            }
+        ],
+        "history_index": 0
+    },
+    {
+        "id": "76003bfd-8a12-42b3-a3c6-067309e3ae59",
+        "judul": "Jumlah Guru dan Murid Menurut Kecamatan Di Kabupaten Kudus",
+        "data": {
+            "Kecamatan": [
+                "Kaliwungu",
+                "Kota",
+                "Jati",
+                "Undaan",
+                "Mejobo",
+                "Jekulo",
+                "Bae",
+                "Gebog",
+                "Dawe"
+            ],
+            "Jumlah Guru SMA (Negeri+Swasta)": [
+                6,
+                200,
+                75,
+                0,
+                73,
+                63,
+                133,
+                65,
+                9
+            ],
+            "Jumlah Murid SMA (Negeri+Swasta)": [
+                131,
+                3265,
+                1362,
+                0,
+                1074,
+                1055,
+                2362,
+                1275,
+                210
+            ]
+        },
+        "kolom_numerik": [
+            "Jumlah Guru SMA (Negeri+Swasta)",
+            "Jumlah Murid SMA (Negeri+Swasta)"
+        ],
+        "warna": "#FF4B4B",
+        "hapus_jumlah": false,
+        "panah_bawah": false,
+        "active_sort_col": "Jumlah Guru SMA (Negeri+Swasta)",
+        "history": [
+            {
+                "data": {
+                    "Kecamatan": [
+                        "Kaliwungu",
+                        "Kota",
+                        "Jati",
+                        "Undaan",
+                        "Mejobo",
+                        "Jekulo",
+                        "Bae",
+                        "Gebog",
+                        "Dawe"
+                    ],
+                    "Jumlah Guru SMA (Negeri+Swasta)": [
+                        6,
+                        200,
+                        75,
+                        0,
+                        73,
+                        63,
+                        133,
+                        65,
+                        9
+                    ],
+                    "Jumlah Murid SMA (Negeri+Swasta)": [
+                        131,
+                        3265,
+                        1362,
+                        0,
+                        1074,
+                        1055,
+                        2362,
+                        1275,
+                        210
+                    ]
+                },
+                "kolom_numerik": [
+                    "Jumlah Guru SMA (Negeri+Swasta)",
+                    "Jumlah Murid SMA (Negeri+Swasta)"
+                ],
+                "hapus_jumlah": false,
+                "active_sort_col": "Jumlah Guru SMA (Negeri+Swasta)"
             }
         ],
         "history_index": 0

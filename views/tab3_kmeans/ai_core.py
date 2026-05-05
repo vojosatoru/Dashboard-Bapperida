@@ -10,7 +10,7 @@ def proses_kmeans(df_untuk_ai, df_master, fitur_terpilih, n_clusters, bobot_baru
     try:
         X = df_untuk_ai[fitur_terpilih]
         
-        # --- FITUR 2: PENANGANAN ERROR AI (FALLBACK) ---
+        # --- PENANGANAN ERROR AI (FALLBACK) ---
         # Mengecek apakah data terlalu seragam (angka sama semua di seluruh kecamatan)
         if X.std().sum() == 0:
             return None, "🚨 Data terlalu seragam (semua kecamatan nilainya sama). AI tidak dapat membedakan mana wilayah yang Kritis dan mana yang Aman. Silakan ubah bobot atau tambah indikator lain."

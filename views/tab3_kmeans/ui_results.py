@@ -21,8 +21,6 @@ def render_peta_zonasi(fitur_terpilih):
         st.markdown("#### 🗺️ Peta Prioritas Wilayah")
         
         # --- PERBAIKAN ERROR HASHING ---
-        # Streamlit caching tidak bisa membaca kolom yang berisi 'list' (seperti Koordinat).
-        # Kita ubah format 'list' tersebut menjadi 'tuple' agar aman dibaca oleh memori Streamlit.
         df_hasil_map = df_hasil.copy()
         if 'Koordinat' in df_hasil_map.columns:
             df_hasil_map['Koordinat'] = df_hasil_map['Koordinat'].apply(lambda x: tuple(x) if isinstance(x, list) else x)
@@ -32,8 +30,6 @@ def render_peta_zonasi(fitur_terpilih):
         st.write("")
         
         # --- PERBAIKAN FLICKERING: Menambahkan returned_objects=[] ---
-        # Ini mencegah Folium mengirim event zoom/click kembali ke Streamlit
-        # sehingga menghentikan siklus refresh (rerun) yang tiada henti.
         st_folium(peta_kudus, width=700, height=450, returned_objects=[])
         
         map_html = peta_kudus.get_root().render()

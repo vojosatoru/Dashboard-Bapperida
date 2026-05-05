@@ -8,25 +8,14 @@ def render_tab1():
     st.header("📝 Input Data Indikator & Profil Kewilayahan")
     st.markdown("Masukkan data dasar wilayah sebagai patokan utama, kemudian tambahkan data indikator tematik sektoral.")
     
-    # ==========================================
     # BAGIAN A: PROFIL DASAR WILAYAH 
-    # ==========================================
     profil_dasar.render_profil_dasar()
 
     st.write("")
     st.markdown("---")
     
-    # ==========================================
     # BAGIAN B: INDIKATOR TEMATIK 
-    # ==========================================
     st.subheader("📊 Bagian B: Indikator Intervensi Tematik")
-    
-    # Toggle Normalisasi (Otomatis dipakai oleh K-Means di Tab 3 nantinya)
-    st.session_state.gunakan_normalisasi = st.toggle(
-        "⚖️ Aktifkan Normalisasi AI Otomatis (Rekomendasi)", 
-        value=True,
-        help="Jika aktif, mesin K-Means akan otomatis membagi indikator tematik Anda dengan Jumlah Penduduk (Per Kapita) atau Luas Wilayah (Kepadatan)."
-    )
     
     # Routing (Lalu Lintas) Tampilan Form sesuai step yang berjalan
     if st.session_state.form_step == 0:

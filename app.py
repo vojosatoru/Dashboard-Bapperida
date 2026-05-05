@@ -33,9 +33,6 @@ init_session_state()
 
 # --- SIDEBAR NAVIGASI BAWAAN (STABIL) ---
 with st.sidebar:
-    # Menambahkan kembali logo Kabupaten Kudus agar tetap profesional
-    st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Lambang_Kabupaten_Kudus.png/409px-Lambang_Kabupaten_Kudus.png", width=80)
-    
     st.title("🏔️ MURIA Bapperida")
     st.markdown("Pilih menu di bawah ini untuk berpindah halaman.")
     st.markdown("---")
@@ -74,11 +71,11 @@ with st.sidebar:
         except AttributeError:
             st.experimental_set_query_params(menu=menu_tujuan)
 
-    # Membuat tombol native Streamlit yang dijamin responsif
+    # Membuat tombol native Streamlit
     for menu in menu_list:
         tipe_tombol = "primary" if st.session_state.active_menu_selector == menu else "secondary"
         
-        # Ganti logika ke on_click agar state ter-update sebelum halaman dimuat ulang!
+        # Ganti logika ke on_click agar state ter-update sebelum halaman dimuat ulang
         st.button(menu, type=tipe_tombol, use_container_width=True, on_click=set_menu, args=(menu,))
     
     st.markdown("---")
