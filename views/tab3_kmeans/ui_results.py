@@ -46,9 +46,32 @@ def render_tabel_zonasi(fitur_terpilih):
     st.markdown("#### 📊 Tabel Rincian Anggota Klaster")
     
     if 'hasil_kmeans' in st.session_state:
-        # Menggabungkan ['Kecamatan', 'Status Zona'] dengan list fitur_terpilih
-        df_tampil = st.session_state.hasil_kmeans[['Kecamatan', 'Status Zona'] + list(fitur_terpilih)]
-        df_tampil = df_tampil.sort_values(by="Status Zona")
+        df_asli = st.session_state.hasil_kmeans
+        
+        # --- FITUR BARU: TOGGLE RASIO TERBALIK ---
+        col_tg, _ = st.columns([2, 1])
+        with col_tg:
+            mode_terbalik = st.toggle(
+                "🗣️ Gunakan Mode Rasio Terbalik", 
+                help="1. Apabila turn off (1 jiwa/km² berbanding X indikator)\n2. Apabila turn on (1 indikator berbanding X jiwa/km²)"
+            )
+
+        # Menyalin dataframe untuk dimanipulasi tampilannya
+        df_tampil = df_asli.copy()
+        
+        # Menyiapkan kolom yang akan ditampilkan (Kecamatan, Status Zona, + fitur_terpilih)
+        kolom_yang_ditampilkan = ['Kecamatan', 'Status Zona'] + list(fitur_terpilih)
+        
+        # Jika toggle aktif, tukar nilai desimal AI dengan nilai Human Ratio (Rasio Terbalik)
+        if mode_terbalik:
+            for col in fitur_terpilih:
+                if "[Dibagi" in col:
+                    nama_human = col + " (Human Ratio)"
+                    if nama_human in df_tampil.columns:
+                        df_tampil[col] = df_tampil[nama_human]
+                        
+        # Filter hanya kolom yang ingin ditampilkan dan urutkan
+        df_tampil = df_tampil[kolom_yang_ditampilkan].sort_values(by="Status Zona")
         
         config_kolom_tab3 = {
             "Kecamatan": st.column_config.TextColumn("Kecamatan", width="medium"),
@@ -57,8 +80,12 @@ def render_tabel_zonasi(fitur_terpilih):
         
         for fitur in fitur_terpilih:
             fitur_singkat = fitur if len(fitur) <= 20 else fitur[:20] + "..."
+            
+            # Tambahkan embel-embel " (Rasio)" pada header jika mode terbalik aktif agar user sadar
+            label_tambahan = " (Rasio)" if mode_terbalik and "[Dibagi" in fitur else ""
+            
             config_kolom_tab3[fitur] = st.column_config.Column(
-                label=fitur_singkat,
+                label=fitur_singkat + label_tambahan,
                 help=f"Indikator Asli: {fitur}",
                 width="medium"
             )

@@ -10,34 +10,6 @@ def render_pengaturan_ai(df_untuk_ai, df_master, fitur_tersedia):
     
     config_ai = muat_config_kmeans()
     
-    # --- DROPDOWN METODE NORMALISASI ---
-    saved_norm = config_ai.get('ai_normalisasi', 'Absolut')
-    pilihan_norm = [
-        "Absolut", 
-        "Bagi Penduduk", 
-        "Bagi Luas Area",
-        "Bagi Penduduk & Luas Area"
-    ]
-    
-    jenis_norm = st.selectbox(
-        "⚖️ Metode Normalisasi Data (Anti Bias):",
-        pilihan_norm,
-        index=pilihan_norm.index(saved_norm) if saved_norm in pilihan_norm else 0,
-        help="Absolut = Angka Mentah. Per Kapita = Membagi dengan Populasi. Kepadatan = Membagi dengan Luas Wilayah. Rasio Ganda = Membagi indikator dengan Populasi DAN Luas Wilayah."
-    )
-    
-    # Jika pengaturan normalisasi diubah, simpan lalu muat ulang halaman
-    if jenis_norm != saved_norm:
-        config_ai['ai_normalisasi'] = jenis_norm
-        simpan_config_kmeans(config_ai)
-        if 'ms_fitur_ai' in st.session_state:
-            del st.session_state['ms_fitur_ai']
-        if 'hasil_kmeans' in st.session_state:
-            del st.session_state['hasil_kmeans']
-        st.rerun()
-    
-    st.markdown("<hr style='margin: 10px 0;'>", unsafe_allow_html=True)
-    
     # --- DEFAULT MULTISELECT HANYA KOLOM ACUAN ---
     # Membaca Tab 1 untuk mendapatkan daftar kolom yang sedang dijadikan acuan
     default_acuan_features = []
@@ -45,11 +17,23 @@ def render_pengaturan_ai(df_untuk_ai, df_master, fitur_tersedia):
         for tabel in st.session_state.koleksi_tabel:
             col_acuan = tabel.get('active_sort_col', '')
             judul = tabel.get('judul', '')
-            prefix = f"{col_acuan} ({judul})"
             
-            # Mencari fitur yang cocok di daftar fitur_tersedia (mengabaikan embel-embel normalisasi)
+            # Menambahkan Suffix agar cocok dengan nama fitur yang telah dinormalisasi di data_prep
+            norm = tabel.get('normalisasi', 'Absolut')
+            if norm == "Dibagi Penduduk":
+                suffix = " [Dibagi Penduduk]"
+            elif norm == "Dibagi Luas Area":
+                suffix = " [Dibagi Luas]"
+            elif norm == "Dibagi Keduanya":
+                suffix = " [Dibagi Keduanya]"
+            else:
+                suffix = ""
+                
+            prefix = f"{col_acuan} ({judul}){suffix}"
+            
+            # Mencari fitur yang cocok di daftar fitur_tersedia
             for f in fitur_tersedia:
-                if f.startswith(prefix):
+                if f == prefix or f.startswith(f"{col_acuan} ({judul})"):
                     default_acuan_features.append(f)
                     break
 
@@ -95,33 +79,25 @@ def render_pengaturan_ai(df_untuk_ai, df_master, fitur_tersedia):
     )
     
     # --- MENCEGAH BACKSPACE MENGHAPUS INDIKATOR (PERBAIKAN OBSERVER) ---
-    # Menyuntikkan script JS dengan MutationObserver untuk memastikan elemen tertangkap
-    # meskipun Streamlit merender komponennya terlambat atau secara asinkron.
     components.html(
         """
         <script>
         function cegahBackspace() {
             const doc = window.parent.document;
-            // Mencari kotak input pada komponen multiselect baseweb
             const inputs = doc.querySelectorAll('[data-baseweb="select"] input');
             inputs.forEach(input => {
-                // Cegah penambahan event listener yang berulang-ulang
                 if (!input.dataset.kebalBackspace) {
                     input.addEventListener('keydown', function(e) {
-                        // Jika tombol backspace ditekan DAN kotak ketikan sedang kosong
                         if (e.key === 'Backspace' && this.value === '') {
-                            e.stopPropagation(); // Cegat sinyalnya!
+                            e.stopPropagation();
                         }
-                    }, true); // Gunakan fase capture
+                    }, true); 
                     input.dataset.kebalBackspace = 'true';
                 }
             });
         }
         
-        // 1. Coba jalankan secara instan
         cegahBackspace();
-        
-        // 2. Pantau perubahan layar. Jika Streamlit memuat elemen belakangan, fungsi akan dijalankan lagi.
         const observer = new MutationObserver(() => {
             cegahBackspace();
         });

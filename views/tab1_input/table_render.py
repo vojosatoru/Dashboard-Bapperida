@@ -63,7 +63,7 @@ def render_tables():
         return
 
     st.markdown("### 📋 Daftar Indikator Tersimpan")
-    st.info("💡 **Tips:** Anda dapat mengganti nama tabel, menghapus kolom, dan mengatur arah pemeringkatan melalui 3 menu pengaturan di bawah judul tabel.")
+    st.info("💡 **Tips:** Anda dapat mengganti nama tabel, menghapus kolom, dan mengatur arah pemeringkatan melalui menu pengaturan di bawah judul tabel.")
     
     for i, tabel in enumerate(st.session_state.koleksi_tabel):
         # Inisialisasi riwayat (history) jika belum ada
@@ -80,11 +80,9 @@ def render_tables():
         with st.container(border=True):
             
             # --- BARIS ATAS: KONTROL UTAMA TABEL ---
-            # Mengembalikan layout ke format tombol asli (tanpa teks input kecil)
             top_col1, top_col2, top_col_undo, top_col_redo, top_col_add, top_col3 = st.columns([4.6, 0.4, 1, 1, 1, 1])
             
             with top_col1:
-                # Mengembalikan tampilan judul menjadi header besar markdown
                 st.markdown(f"### {tabel['judul']}")
 
             with top_col2:
@@ -138,7 +136,7 @@ def render_tables():
                     simpan_data(st.session_state.koleksi_tabel) 
                     st.rerun()
 
-            st.markdown("<hr style='margin: 0px 0px 15px 0px'>", unsafe_allow_html=True)
+            st.markdown("<hr style='margin: 0px 0px 10px 0px'>", unsafe_allow_html=True)
 
             # --- FORM TAMBAH KOLOM (STEP 3) ---
             if st.session_state.form_step == 3 and st.session_state.get('edit_table_id') == tabel_id:
@@ -161,15 +159,17 @@ def render_tables():
                 st.rerun()
                 continue 
 
-            # --- BARIS TENGAH: KONTROL URUTAN, HAPUS KOLOM, DAN UBAH NAMA ---
-            # Kita pecah menjadi 3 kolom Expander agar sangat rapi dan seragam
-            ctrl1, ctrl2, ctrl3 = st.columns(3)
+            # =================================================================
+            # BARIS TENGAH: PENGATURAN TABEL (DIBUAT MENJADI 2 BARIS x 2 KOLOM)
+            # =================================================================
             
-            with ctrl1:
-                # Memindahkan fitur Rename Tabel ke menu expander paling kiri (ctrl1)
+            # --- BARIS PERTAMA PENGATURAN ---
+            row1_col1, row1_col2 = st.columns(2)
+            
+            with row1_col1:
                 with st.expander("✏️ Ubah Nama Tabel", expanded=False):
                     st.markdown("**Ganti Nama:**")
-                    col_rn_input, col_rn_btn = st.columns([2, 1])
+                    col_rn_input, col_rn_btn = st.columns([3, 1])
                     judul_baru = col_rn_input.text_input("Nama Baru", value=tabel['judul'], key=f"rename_exp_{tabel_id}", label_visibility="collapsed")
                     
                     if col_rn_btn.button("Simpan", key=f"btn_save_name_{tabel_id}", use_container_width=True, type="primary"):
@@ -178,7 +178,7 @@ def render_tables():
                             simpan_data(st.session_state.koleksi_tabel)
                             st.rerun()
                             
-            with ctrl2:
+            with row1_col2:
                 with st.expander("📌 Pengaturan Urutan", expanded=False):
                     st.markdown("**Urutkan Peringkat Berdasarkan:**")
                     col_sort, col_dir = st.columns([2, 1])
@@ -194,11 +194,49 @@ def render_tables():
                         st.session_state.koleksi_tabel[i]['panah_bawah'] = is_panah_bawah
                         simpan_data(st.session_state.koleksi_tabel)
                         st.rerun()
+            
+            # --- BARIS KEDUA PENGATURAN ---
+            row2_col1, row2_col2 = st.columns(2)
+            
+            with row2_col1:
+                with st.expander("⚖️ Normalisasi (Anti Bias AI)", expanded=False):
+                    st.markdown("**Metode Perhitungan AI K-Means:**")
+                    
+                    # --- PERBAIKAN: Penyederhanaan label normalisasi ---
+                    pilihan_norm = [
+                        "Absolut", 
+                        "Dibagi Penduduk", 
+                        "Dibagi Luas Area",
+                        "Dibagi Keduanya"
+                    ]
+                    
+                    # Membaca normalisasi yang sudah tersimpan di tabel (default: Absolut)
+                    norm_aktif = tabel.get('normalisasi', 'Absolut')
+                    
+                    # Logika aman jika tabel sebelumnya menyimpan nilai nama lama (misal "Per Kapita (Bagi Penduduk)")
+                    if norm_aktif == "Per Kapita (Bagi Penduduk)": norm_aktif = "Dibagi Penduduk"
+                    elif norm_aktif == "Kepadatan (Bagi Luas Area)": norm_aktif = "Dibagi Luas Area"
+                    elif norm_aktif == "Rasio Ganda (Bagi Penduduk & Luas Area)": norm_aktif = "Dibagi Keduanya"
                         
-            with ctrl3:
+                    idx_norm = pilihan_norm.index(norm_aktif) if norm_aktif in pilihan_norm else 0
+                    
+                    norm_baru = st.selectbox(
+                        "Pilih Metode:", 
+                        pilihan_norm, 
+                        index=idx_norm, 
+                        key=f"norm_sel_{tabel_id}", 
+                        label_visibility="collapsed"
+                    )
+                    
+                    if norm_baru != tabel.get('normalisasi', 'Absolut'):
+                        st.session_state.koleksi_tabel[i]['normalisasi'] = norm_baru
+                        simpan_data(st.session_state.koleksi_tabel)
+                        st.rerun()
+
+            with row2_col2:
                 with st.expander("🗑️ Hapus Kolom", expanded=False):
                     st.markdown("**Hapus Indikator/Kolom:**")
-                    col_del_sel, col_del_btn = st.columns([2, 1])
+                    col_del_sel, col_del_btn = st.columns([3, 1])
                     del_choice = col_del_sel.selectbox("Pilih Kolom:", ["-- Pilih Kolom --"] + kolom_tampil, key=f"del_sel_{tabel_id}", label_visibility="collapsed")
                     
                     if col_del_btn.button("Hapus", key=f"btn_del_{tabel_id}", use_container_width=True):

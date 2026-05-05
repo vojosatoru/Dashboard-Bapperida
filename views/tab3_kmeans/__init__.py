@@ -9,22 +9,19 @@ from views.tab3_kmeans.ui_results import render_peta_zonasi, render_tabel_zonasi
 
 def render_tab3():
     st.subheader("🤖 Peta Zonasi AI (K-Means Clustering)")
-    st.markdown("AI membaca indikator yang dipilih dan **menyelaraskan nilainya secara otomatis**, lalu mengelompokkan kecamatan ke dalam zona prioritas menggunakan Machine Learning.")
+    st.markdown("AI membaca indikator yang dipilih dan **menyelaraskan nilainya secara otomatis** berdasarkan metode normalisasi pada masing-masing tabel, lalu mengelompokkan kecamatan ke dalam zona prioritas menggunakan Machine Learning.")
     
     # Validasi Keberadaan Data
     if not st.session_state.koleksi_tabel:
         st.warning("⚠️ Tambahkan data di Tab 1 terlebih dahulu agar AI bisa mulai belajar (Training).")
         return
         
-    # --- MENGAMBIL KONFIGURASI NORMALISASI & PROFIL DASAR ---
-    config_ai = muat_config_kmeans()
-    jenis_norm = config_ai.get('ai_normalisasi', 'Absolut')
+    # --- MENGAMBIL PROFIL DASAR ---
     data_dasar = st.session_state.get('data_dasar', None)
         
-    # 1. Tahap Persiapan Data (Terintegrasi dengan Normalisasi)
+    # 1. Tahap Persiapan Data (Terintegrasi dengan Normalisasi per Tabel)
     df_master, df_untuk_ai, fitur_tersedia = siapkan_data_koleksi(
         st.session_state.koleksi_tabel,
-        jenis_normalisasi=jenis_norm,
         data_dasar=data_dasar
     )
     
