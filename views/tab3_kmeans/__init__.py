@@ -11,17 +11,24 @@ def render_tab3():
     st.subheader("🤖 Peta Zonasi AI (K-Means Clustering)")
     st.markdown("AI membaca indikator yang dipilih dan **menyelaraskan nilainya secara otomatis** berdasarkan metode normalisasi pada masing-masing tabel, lalu mengelompokkan kecamatan ke dalam zona prioritas menggunakan Machine Learning.")
     
+    # --- Menyaring Hanya Tabel yang Aktif ---
+    tabel_aktif = [t for t in st.session_state.get('koleksi_tabel', []) if t.get('is_active', True)]
+    
     # Validasi Keberadaan Data
-    if not st.session_state.koleksi_tabel:
-        st.warning("⚠️ Tambahkan data di Tab 1 terlebih dahulu agar AI bisa mulai belajar (Training).")
+    if not tabel_aktif:
+        if not st.session_state.get('koleksi_tabel'):
+            st.warning("⚠️ Tambahkan data di Tab 1 terlebih dahulu agar AI bisa mulai belajar (Training).")
+        else:
+            st.warning("⚠️ Semua tabel saat ini berstatus 'Mati/Nonaktif'. Silakan aktifkan minimal 1 tabel di Tab 1 agar AI dapat bekerja.")
         return
         
     # --- MENGAMBIL PROFIL DASAR ---
     data_dasar = st.session_state.get('data_dasar', None)
         
     # 1. Tahap Persiapan Data (Terintegrasi dengan Normalisasi per Tabel)
+    # Kita HANYA mengirimkan "tabel_aktif" ke dalam mesin persiapan data
     df_master, df_untuk_ai, fitur_tersedia = siapkan_data_koleksi(
-        st.session_state.koleksi_tabel,
+        tabel_aktif,
         data_dasar=data_dasar
     )
     

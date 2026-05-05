@@ -90,7 +90,7 @@
             "Tenaga Kesehatan - Tenaga Gizi"
         ],
         "warna": "#FF4B4B",
-        "active_sort_col": "Jumlah",
+        "active_sort_col": "Tenaga Kesehatan - Perawat",
         "panah_bawah": false,
         "hapus_jumlah": false,
         "history": [
@@ -184,10 +184,90 @@
                 ],
                 "hapus_jumlah": false,
                 "active_sort_col": "Tenaga Kesehatan - Perawat"
+            },
+            {
+                "data": {
+                    "Kecamatan": [
+                        "Kaliwungu",
+                        "Kota",
+                        "Jati",
+                        "Undaan",
+                        "Mejobo",
+                        "Jekulo",
+                        "Bae",
+                        "Gebog",
+                        "Dawe"
+                    ],
+                    "Tenaga Kesehatan - Perawat": [
+                        514,
+                        387,
+                        1175,
+                        55,
+                        49,
+                        113,
+                        53,
+                        44,
+                        44
+                    ],
+                    "Tenaga Kesehatan - Bidan": [
+                        146,
+                        206,
+                        188,
+                        61,
+                        50,
+                        102,
+                        57,
+                        57,
+                        66
+                    ],
+                    "Tenaga Kesehatan - Tenaga Kefarmasian": [
+                        126,
+                        209,
+                        204,
+                        35,
+                        33,
+                        51,
+                        55,
+                        34,
+                        49
+                    ],
+                    "Tenaga Kesehatan - Tenaga Kesehatan Masyarakat": [
+                        8,
+                        33,
+                        6,
+                        3,
+                        3,
+                        5,
+                        5,
+                        5,
+                        3
+                    ],
+                    "Tenaga Kesehatan - Tenaga Kesehatan Lingkungan": [
+                        4,
+                        13,
+                        7,
+                        2,
+                        2,
+                        3,
+                        2,
+                        3,
+                        2
+                    ]
+                },
+                "kolom_numerik": [
+                    "Tenaga Kesehatan - Perawat",
+                    "Tenaga Kesehatan - Bidan",
+                    "Tenaga Kesehatan - Tenaga Kefarmasian",
+                    "Tenaga Kesehatan - Tenaga Kesehatan Masyarakat",
+                    "Tenaga Kesehatan - Tenaga Kesehatan Lingkungan"
+                ],
+                "hapus_jumlah": false,
+                "active_sort_col": "Jumlah"
             }
         ],
         "history_index": 0,
-        "normalisasi": "Dibagi Penduduk"
+        "normalisasi": "Dibagi Penduduk",
+        "is_active": true
     },
     {
         "id": "2ac72b9d-68b3-402a-850e-f0c416de215f",
