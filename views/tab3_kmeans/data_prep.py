@@ -22,9 +22,9 @@ def siapkan_data_koleksi(koleksi_tabel, data_dasar=None):
         jenis_normalisasi = tabel.get('normalisasi', 'Absolut')
         
         # Penyesuaian nama legacy
-        if jenis_normalisasi == "Per Kapita (Bagi Penduduk)": jenis_normalisasi = "Dibagi Penduduk"
-        elif jenis_normalisasi == "Kepadatan (Bagi Luas Area)": jenis_normalisasi = "Dibagi Luas Area"
-        elif jenis_normalisasi == "Rasio Ganda (Bagi Penduduk & Luas Area)": jenis_normalisasi = "Dibagi Keduanya"
+        if jenis_normalisasi == "Bagi Penduduk": jenis_normalisasi = "Dibagi Penduduk"
+        elif jenis_normalisasi == "Bagi Luas Area": jenis_normalisasi = "Dibagi Luas Area"
+        elif jenis_normalisasi == "Bagi Penduduk & Luas Area": jenis_normalisasi = "Dibagi Keduanya"
         
         if jenis_normalisasi != "Absolut" and data_dasar is None:
             jenis_normalisasi = "Absolut"

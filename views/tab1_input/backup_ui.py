@@ -39,7 +39,7 @@ def kelola_gist(aksi, token, filename, content_string=None, gist_id=None):
 
 def render_backup_ui():
     """Merender antarmuka expander untuk Ekspor/Impor Lokal & Cloud Backup"""
-    with st.expander("💾 Simpan / Muat Proyek (.json)", expanded=False):
+    with st.expander("💾 Simpan / Muat Proyek", expanded=False):
         st.info("💡 Gunakan fitur ini untuk mengamankan data secara lokal, atau Sinkronisasikan ke Cloud (GitHub Gist).")
         
         # --- PERBAIKAN: Menampilkan pesan sukses yang dititipkan di memori sebelum rerun ---

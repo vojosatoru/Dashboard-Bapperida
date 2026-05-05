@@ -98,13 +98,13 @@ def render_tabel_zonasi(fitur_terpilih):
         for fitur in fitur_terpilih:
             fitur_singkat = fitur if len(fitur) <= 20 else fitur[:20] + "..."
             
-            # Tambahkan embel-embel " (Rasio)" pada header jika mode terbalik aktif agar user sadar
-            label_tambahan = " (Rasio)" if mode_terbalik and "[Dibagi" in fitur else ""
+            # Tambahkan embel-embel " (Terbalik)" pada header jika mode terbalik aktif agar user sadar
+            label_tambahan = " (Terbalik)" if mode_terbalik and "[Dibagi" in fitur else ""
             
             config_kolom_tab3[fitur] = st.column_config.Column(
                 label=fitur_singkat + label_tambahan,
                 help=f"Indikator Asli: {fitur}",
-                width="medium"
+                width=240 # --- PERBAIKAN: Menggunakan ukuran fix 240 pixel agar sangat proporsional ---
             )
         
         # --- PERBAIKAN FORMAT ANGKA: Menerapkan fungsi format_angka_indo ---

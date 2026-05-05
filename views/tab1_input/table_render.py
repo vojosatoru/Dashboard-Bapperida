@@ -107,9 +107,7 @@ def render_tables():
                 st.rerun()
                 continue 
 
-            # =================================================================
             # BARIS TENGAH: PENGATURAN TABEL (DIBUAT MENJADI 2 BARIS x 2 KOLOM)
-            # =================================================================
             
             # --- BARIS PERTAMA PENGATURAN ---
             row1_col1, row1_col2 = st.columns(2)
@@ -160,9 +158,9 @@ def render_tables():
                     
                     norm_aktif = tabel.get('normalisasi', 'Absolut')
                     
-                    if norm_aktif == "Per Kapita (Bagi Penduduk)": norm_aktif = "Dibagi Penduduk"
-                    elif norm_aktif == "Kepadatan (Bagi Luas Area)": norm_aktif = "Dibagi Luas Area"
-                    elif norm_aktif == "Rasio Ganda (Bagi Penduduk & Luas Area)": norm_aktif = "Dibagi Keduanya"
+                    if norm_aktif == "Bagi Penduduk": norm_aktif = "Dibagi Penduduk"
+                    elif norm_aktif == "Bagi Luas Area": norm_aktif = "Dibagi Luas Area"
+                    elif norm_aktif == "Bagi Penduduk & Luas Area": norm_aktif = "Dibagi Keduanya"
                         
                     idx_norm = pilihan_norm.index(norm_aktif) if norm_aktif in pilihan_norm else 0
                     
