@@ -6,5 +6,13 @@
         "Jumlah (Jumlah Rumah Sakit Umum, Rumah Sakit Ibu Dan Anak, Puskesmas, Klinik Pratama, Dan Posyandu Menurut Kecamatan Di Kabupaten Kudus, 2025) [Dibagi Luas]": 1.0,
         "Jumlah (Jumlah SMA Menurut Kecamatan Di Kabupaten Kudus, 2025) [Dibagi Luas]": 1.0,
         "Jumlah (Jumlah Guru dan Murid SMA Menurut Kecamatan Di Kabupaten Kudus, 2025)": 1.0
-    }
+    },
+    "ai_selected_features": [
+        "Jumlah (Jumlah Tenaga Kesehatan Menurut Kecamatan Di Kabupaten Kudus, 2025) [Dibagi Penduduk]",
+        "Daya Terpasang (VA) (Daya Terpasang, Produksi, Dan Distribusi Listrik Pt. Pln (Persero) Pada Cabang Ranting Pln Menurut Kecamatan Di Kabupaten Kudus, 2023)",
+        "Jumlah (Jumlah Desa Kelurahan Yang Mengalami Bencana Alam Menurut Kecamatan Di Kabupaten Kudus, 2025)",
+        "Jumlah (Jumlah Rumah Sakit Umum, Rumah Sakit Ibu Dan Anak, Puskesmas, Klinik Pratama, Dan Posyandu Menurut Kecamatan Di Kabupaten Kudus, 2025) [Dibagi Luas]",
+        "Jumlah (Jumlah SMA Menurut Kecamatan Di Kabupaten Kudus, 2025) [Dibagi Luas]",
+        "Jumlah (Jumlah Guru dan Murid SMA Menurut Kecamatan Di Kabupaten Kudus, 2025)"
+    ]
 }
