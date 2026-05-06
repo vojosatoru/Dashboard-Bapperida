@@ -21,11 +21,14 @@ Sebelum memulai pengisian data, Bapak/Ibu dapat menentukan apakah akan bekerja d
 ### Langkah 1: Input Data Indikator (Tab 1)
 
 Halaman ini adalah pusat pengelolaan data. Bapak/Ibu dipersilakan untuk memasukkan data statistik (seperti tingkat kemiskinan, jumlah sekolah, dll) per kecamatan. Terdapat dua pilihan metode pengisian:
-* **Bagian A: Profil Dasar Wilayah:** Berisi data fundamental (Luas Daerah & Jumlah Penduduk). Sistem telah menyediakan data BPS secara otomatis, namun Bapak/Ibu dapat memperbaruinya kapan saja melalui menu unggah (Import) khusus profil dasar. Data ini wajib ada sebagai pengkalibrasi mesin AI.
-* **Bagian B: Indikator Intervensi Tematik:** Tempat Bapak/Ibu memasukkan data statistik sektoral (seperti tingkat kemiskinan, jumlah sekolah, dll). Terdapat dua pilihan metode pengisian:
+* **Bagian A: Profil Dasar Wilayah (Dilengkapi Fitur Time-Series):** Berisi data fundamental Luas Daerah dan Jumlah Penduduk. Anda dapat mengimpor jumlah penduduk dari berbagai tahun (Misal: 2025, 2026, 2027) tanpa menimpa data lama. **Gunakan tombol *Radio* dengan sorotan hijau** untuk menunjuk tahun mana yang sedang aktif dijadikan pembagi rasio oleh mesin AI.
+* **Bagian B: Indikator Intervensi Tematik:** Tempat Bapak/Ibu memasukkan data statistik sektoral (seperti tingkat kemiskinan, jumlah sekolah, dll). Dengan fitur:
+   * **Smart Search Autocomplete:** Gunakan kotak pencarian di bagian atas untuk menyaring dan mencari tabel indikator secara instan *(real-time)* jika jumlah tabel sudah terlalu banyak.
    * Tambah Data Manual: Klik tombol `+ Tambah Indikator (Manual)`, ketikkan judul tabel, lalu masukkan angka satu per satu secara manual.
    * Impor Otomatis (Sangat Disarankan): Klik tombol `📁 Ambil dari Excel/CSV`. Unggah file data BPS yang Bapak/Ibu miliki.
       * ⚠️ Catatan Penting saat Impor Data: Apabila pada pratinjau tabel terdapat kolom dengan nama aneh seperti `Unnamed: 0` atau `Unnamed: 1`, hal tersebut terjadi karena file Excel Bapak/Ibu memiliki kop surat di baris paling atas. Untuk memperbaikinya, silakan naikkan angka pada menu **"📌 Baris Judul Kolom (Header)"** (misalnya menjadi baris 2 atau 3) hingga pratinjau tabel menampilkan nama kolom dengan benar (misal: "Kecamatan", "Jumlah Penduduk").
+   * **Manajemen Tabel (Soft Delete):** Anda dapat menekan sakelar **"⚫ Mati"** di sudut kanan setiap tabel untuk mengecualikannya dari kalkulasi AI dan Penilaian tanpa harus menghapus datanya (tabel akan tampil dengan efek redup/grayscale).
+   * **Normalisasi Data (Pencegah Bias Ukuran):** Pada setiap kotak tabel, buka menu pengaturan **"⚖️ Sesuaikan Proporsi / Rasio"** untuk mengatur metode perbandingan yang adil (Absolut, Dibagi Penduduk, Dibagi Luas, atau Dibagi Keduanya).
 Setelah tabel berhasil dibuat, Bapak/Ibu dapat menggunakan menu **"📌 Pengaturan Urutan"** di dalam kotak tabel untuk menentukan kriteria data: apakah nilai yang semakin besar dianggap semakin baik, atau sebaliknya.
 
 ### Langkah 2: Melihat Peringkat & Proporsi (Tab 2)
@@ -39,40 +42,38 @@ Setelah seluruh data indikator selesai diinput di Tab 1, silakan buka Tab 2.
 ### Langkah 3: Eksekusi Kecerdasan Buatan & Pemetaan (Tab 3)
 
 Halaman ini merupakan tahap akhir analisis yang menggunakan teknologi Kecerdasan Buatan (AI).
-1. **Metode Normalisasi Data (Pencegah Bias):** Sebelum AI bekerja, pilih metode perhitungan agar wilayah yang besar/padat tidak selalu dianggap paling bermasalah. Anda bisa memilih:
-   * **Absolut:** Menggunakan angka mentah apa adanya.
-   * **Per Kapita:** Otomatis membagi indikator dengan Jumlah Penduduk.
-   * **Kepadatan:** Otomatis membagi indikator dengan Luas Wilayah.
-   * **Rasio Ganda:** Membagi indikator dengan populasi sekaligus luas area.
-2. **Pemilihan Indikator Cerdas:** Sistem otomatis memilihkan "Kolom Acuan" dari Tab 1 untuk dianalisis. Anda bisa menambah/menghapus indikator dengan mengklik kotak pencarian (Search Box). *Catatan: Menekan Backspace tidak akan menghapus indikator secara tidak sengaja berkat sistem proteksi internal.*
-3. **Pengaturan Lanjutan AI:** 
+1. **Pemilihan Indikator Cerdas:** Sistem otomatis memilihkan "Kolom Acuan" dari Tab 1 untuk dianalisis. Anda bisa menambah/menghapus indikator dengan mengklik kotak pencarian (Search Box). *Catatan: Menekan Backspace tidak akan menghapus indikator secara tidak sengaja berkat sistem proteksi internal.*
+2. **Pengaturan Lanjutan AI:** 
    * **Klaster:** Tentukan jumlah pembagian zona prioritas (2, 3, atau 4).
    * **Sensitivitas:** Tingkatkan nilainya jika ingin mempersulit suatu wilayah masuk ke zona merah (Kritis).
    * **Kepadatan:** Otomatis membagi indikator dengan Luas Wilayah.
    * **Bobot (Weighting):** Geser *slider* jika ingin sebuah indikator lebih mendominasi perhitungan AI dibandingkan indikator lainnya.
-4. **Analisis Peta:** Peta interaktif di sebelah kanan akan menampilkan wilayah Kabupaten Kudus yang telah diwarnai sesuai dengan zona prioritasnya (Merah = Kritis, Kuning/Hijau = Aman).
-5. Bapak/Ibu dapat mengunduh **"Peta Interaktif (.html)"** atau **"Laporan Anggota Klaster (.xlsx)"** untuk keperluan bahan presentasi pimpinan.
+3. **Analisis Peta:** Peta interaktif di sebelah kanan akan menampilkan wilayah Kabupaten Kudus yang telah diwarnai sesuai dengan zona prioritasnya (Merah = Kritis, Kuning/Hijau = Aman).
+4. Bapak/Ibu dapat mengunduh **"Peta Interaktif (.html)"** atau **"Laporan Anggota Klaster (.xlsx)"** untuk keperluan bahan presentasi pimpinan.
 
-### Langkah 4: Penyimpanan Data Cadangan (Sangat Penting)
+### Langkah 4: Penyimpanan Data Cadangan (Auto-Save Gist & Offline Backup)
 
 Aplikasi yang berada di server cloud melakukan pembersihan memori secara berkala. Untuk memastikan data hasil kerja keras Bapak/Ibu tidak hilang, mohon lakukan langkah berikut sebelum menutup browser:
-1. Kembali ke halaman **Tab 1**.
-2. Klik menu lipat bernama **"💾 Simpan / Muat Proyek Offline (.json)"**.
-3. Klik tombol **"📥 Unduh Proyek (.json)"**.
-4. File tersebut akan tersimpan secara permanen di dalam laptop atau flashdisk Bapak/Ibu. Apabila esok hari Bapak/Ibu ingin melanjutkan pekerjaan, cukup unggah kembali file tersebut menggunakan fitur "Muat Proyek" di menu yang sama. Data akan langsung kembali seperti semula.
+1. **Simpan ke Cloud (Push):** Setiap kali Bapak/Ibu selesai bekerja dan ingin mengamankan data ke dalam penyimpanan awan (Cloud), buka **Tab 1**, klik menu **"💾 Simpan / Muat Proyek Offline (.json)"**, dan tekan tombol **Push**.
+2. **Tarik dari Cloud (Pull):** Saat Bapak/Ibu membuka aplikasi ini kembali keesokan harinya atau dari perangkat lain, buka menu yang sama dan tekan tombol **Pull**. Sistem akan seketika menarik dan memuat ulang seluruh pekerjaan terakhir Anda dari server Gist.
+2. **Cadangan Luring / Offline (Opsional):** Jika Bapak/Ibu menginginkan arsip fisik di komputer lokal, buka Tab 1, klik menu **"💾 Simpan / Muat Proyek Offline (.json)"**, lalu pilih **"📥 Unduh Proyek (.json)"**. File ini bisa diunggah kembali kapan saja jika dibutuhkan.
 
 ## ✨ Fitur Utama
 
 ### 🤝 Keamanan Data & Kolaborasi
 * **Ruang Kerja Privat (Project Key):** Mengisolasi pengerjaan secara mandiri oleh banyak staf tanpa risiko saling menimpa data.
 * **Manajemen Profil Dasar Mandiri:** Data Luas Wilayah dan Penduduk tersimpan secara universal di server dan dapat di-update kapan saja melalui fitur Impor cerdas khusus profil.
-* **Ekspor/Impor Offline (.json):** Perlindungan data tingkat tinggi yang memungkinkan pengguna mengunduh seluruh state proyek ke komputer masing-masing.
+* **Cloud Sync via Gist (Push/Pull):** Menggunakan GitHub Gist sebagai penyimpanan database rahasia *(serverless)*. Sistem persetujuan *Push* dan *Pull* manual memberikan kendali penuh kepada pengguna untuk menyimpan progres atau menarik data pembaruan, sehingga sangat aman untuk kolaborasi tim.
 
 ### 🏠 Beranda Executive (Modul Utama)
 * **Ringkasan Eksekutif & Deteksi Zona Kritis:** Menampilkan Indikator Kinerja Utama (KPI) serta memberikan peringatan dini mengenai jumlah kecamatan yang terdeteksi masuk ke dalam zona paling kritis.
 * **Prioritas Utama (Top 5):** Menyajikan grafik batang (Bar Chart) interaktif yang menyoroti 5 kecamatan dengan urgensi penanganan tertinggi.
 
 ### 📝 Tab 1: Input Data Indikator (Modul Input)
+* **Manajemen Historis Kependudukan (Time-Series):** Mendukung penyimpanan data penduduk lintas tahun. Pengguna dapat memilih tahun acuan secara dinamis (ditandai sorotan hijau) yang akan otomatis memengaruhi perhitungan Normalisasi AI.
+* **Normalisasi Spesifik-Tabel:** Sistem penangkal *Size-Bias* kini dapat diatur secara spesifik dan berbeda-beda untuk setiap tabel indikator, membuat perhitungan jauh lebih tajam dan akurat.
+* **Smart Autocomplete Search:** Kotak pencarian interaktif anti-backspace untuk menyaring dan menavigasi puluhan tabel indikator seketika *(real-time)*.
+* **Soft Delete (Matikan Tabel):** Menonaktifkan tabel indikator dari kalkulasi AI tanpa harus menghapusnya (tabel dirender redup/grayscale).
 * **Sistem Impor Cerdas:** Dilengkapi dengan algoritma pendeteksi baris judul otomatis dan pembersihan data (data sanitization). Sistem secara cerdas akan mengabaikan karakter yang tidak valid (seperti sel kosong atau tanda hubung/strip) dari data BPS.
 * **Modifikasi Interaktif:** Terdapat fitur pengembalian langkah (Undo/Redo) apabila terjadi kesalahan, serta pemformatan angka ribuan secara otomatis untuk kemudahan membaca data.
 
