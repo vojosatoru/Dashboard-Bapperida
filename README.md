@@ -17,6 +17,7 @@ Sebelum memulai pengisian data, Bapak/Ibu dapat menentukan apakah akan bekerja d
 2. Gulir layar ke bagian paling bawah, lalu klik pada menu **"⚙️ Pengaturan Ruang Kerja Lanjutan".**
 3. Pada kolom **"Kunci Proyek"**, silakan ketikkan nama Bapak/Ibu atau nama divisi (contoh: `banjir_2026` atau `budi_rahasia`), kemudian tekan tombol *Enter* pada keyboard.
 4. Sistem akan memuat ulang halaman menjadi ruang kerja yang bersih dan baru. Kini Bapak/Ibu berada di ruang kerja privat yang aman dari gangguan perubahan data oleh staf lain. Jika Bapak/Ibu ingin berkolaborasi (mengerjakan data yang sama dengan rekan kerja), cukup berikan Kunci Proyek tersebut kepada rekan Bapak/Ibu.
+5. Saat membuka tab 1 dan isinya kosong, pastikan untuk menekan tombol **Pull** pada menu **"💾 Simpan / Muat Proyek Offline (.json)"**, barangkali terdapat data yang belum dipulihkan dan untuk mencegah adanya konflik data.
 
 ### Langkah 1: Input Data Indikator (Tab 1)
 
