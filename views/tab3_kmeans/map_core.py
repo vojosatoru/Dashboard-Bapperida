@@ -25,7 +25,7 @@ def hitung_pusat_poligon(geometry):
     return avg_lat, avg_lon
 
 def buat_peta(df_hasil, fitur_terpilih):
-    """Membangun peta interaktif menggunakan Folium dengan Poligon yang bisa di-klik (Tanpa Pin)."""
+    """Membangun peta interaktif menggunakan Folium dengan Poligon yang bisa di-klik."""
     
     m = folium.Map(location=[-6.8048, 110.8405], zoom_start=11.5)
 
@@ -53,7 +53,6 @@ def buat_peta(df_hasil, fitur_terpilih):
             with open(path_valid, 'r') as f:
                 geojson_batas = json.load(f)
                 
-            # Mengubah df_hasil menjadi dictionary untuk mempermudah injeksi data
             df_dict = df_hasil.set_index('Kecamatan').to_dict(orient='index')
                 
             # --- INJEKSI DATA SPASIAL DAN FITUR AI KE DALAM POLIGON ---
@@ -73,34 +72,33 @@ def buat_peta(df_hasil, fitur_terpilih):
                 if 'properties' not in feature:
                     feature['properties'] = {}
                     
-                # Injeksi Nama Kecamatan
                 feature['properties']['KECAMATAN'] = kecamatan_terdekat
                 centroid_map[kecamatan_terdekat] = [poly_lat, poly_lon]
                 
-                # Injeksi Data Indikator untuk Popup/Tooltip
                 if kecamatan_terdekat in df_dict:
                     row_data = df_dict[kecamatan_terdekat]
                     feature['properties']['Status_Zona'] = row_data.get('Status Zona', 'Tidak Diketahui')
                     feature['properties']['Klaster_ID'] = row_data.get('Klaster_ID', -1)
                     
+                    # --- MENYUNTIKKAN FOKUS PERBAIKAN KE HOVER PETA ---
+                    fokus = row_data.get('Fokus_Perbaikan', '-')
+                    feature['properties']['Fokus_Utama'] = fokus if fokus != "-" else "✅ Sudah Aman"
+                    
                     for fitur in fitur_terpilih:
                         val = row_data.get(fitur)
                         if isinstance(val, float):
-                            # Memformat angka desimal agar cantik saat muncul di popup
                             feature['properties'][fitur] = f"{val:,.3f}"
                         else:
                             feature['properties'][fitur] = str(val)
 
-            # --- PERBAIKAN: Mengonversi tuple menjadi list agar tidak error ---
-            fields_popup = ['KECAMATAN', 'Status_Zona'] + list(fitur_terpilih)
-            aliases_popup = ['Kecamatan:', 'Status Zona:'] + [f"{f}:" for f in fitur_terpilih]
+            # Field untuk klik lengkap (Pop-up)
+            fields_popup = ['KECAMATAN', 'Status_Zona', 'Fokus_Utama'] + list(fitur_terpilih)
+            aliases_popup = ['Kecamatan:', 'Status Zona:', 'Saran Perbaikan:'] + [f"{f}:" for f in fitur_terpilih]
 
             # --- MENGGAMBAR POLIGON INTERAKTIF ---
             folium.GeoJson(
                 geojson_batas,
                 name='Zonasi Prioritas',
-                
-                # Pengaturan warna diam (Idle)
                 style_function=lambda feature: {
                     'fillColor': warna_klaster.get(feature['properties'].get('Klaster_ID', -1), 'gray'),
                     'color': 'black',
@@ -108,22 +106,18 @@ def buat_peta(df_hasil, fitur_terpilih):
                     'fillOpacity': 0.6,
                     'opacity': 0.5
                 },
-                
-                # Pengaturan saat kursor menyentuh poligon (Hover)
                 highlight_function=lambda feature: {
                     'weight': 3,
                     'color': 'white',
                     'fillOpacity': 0.8
                 },
                 
-                # Tooltip kecil saat kursor melintas (Hover)
+                # --- PERBAIKAN TOOLTIP (HOVER): MENAMBAHKAN FOKUS UTAMA ---
                 tooltip=folium.GeoJsonTooltip(
-                    fields=['KECAMATAN', 'Status_Zona'],
-                    aliases=['Kecamatan:', 'Zona:'],
+                    fields=['KECAMATAN', 'Status_Zona', 'Fokus_Utama'],
+                    aliases=['Kecamatan:', 'Zona:', 'Prioritas Perbaikan:'],
                     style="font-family: Arial, sans-serif; font-size: 13px; font-weight: bold;"
                 ),
-                
-                # Tabel data lengkap saat poligon di-klik (Click)
                 popup=folium.GeoJsonPopup(
                     fields=fields_popup,
                     aliases=aliases_popup,
@@ -136,9 +130,7 @@ def buat_peta(df_hasil, fitur_terpilih):
     else:
         st.warning("⚠️ File batas kecamatan (Kecamatan_Kudus.json) tidak ditemukan di folder 'data/'. Pastikan nama file sudah benar.")
 
-
     # TEKS LABEL NAMA KECAMATAN PERMANEN
-    # Pin marker icon dihapus. Hanya menyisakan teks agar peta bersih.
     for idx, row in df_hasil.iterrows():
         kec = row['Kecamatan']
         koordinat = centroid_map.get(kec, row.get('Koordinat'))
@@ -159,7 +151,7 @@ def buat_peta(df_hasil, fitur_terpilih):
                     text-align: center;
                     width: 120px;
                     transform: translate(-50%, -50%);
-                    pointer-events: none; /* Sangat penting: agar teks tidak menghalangi klik ke poligon */
+                    pointer-events: none;
                 ">
                     {kec.upper()}
                 </div>
